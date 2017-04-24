@@ -1,0 +1,170 @@
+{*
+* PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* PAYONE Prestashop Connector is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License
+* along with PAYONE Prestashop Connector. If not, see <http://www.gnu.org/licenses/>.
+*
+* PHP version 5
+*
+* @category  Payone
+* @package   fcpayone
+* @author    FATCHIP GmbH <support@fatchip.de>
+* @copyright 2003 - 2017 Payone GmbH
+* @license   <http://www.gnu.org/licenses/> GNU Lesser General Public License
+* @link      http://www.payone.de
+*}
+{capture name=path}{$oFcPayonePayment->getTitle()}{/capture}
+<div class="box {if !$blFcPayoneShowMandate}js-payone-validate{/if}"
+     data-payone-validation-url="{$sFcPayoneValidationUrl}" data-payone-payment-id="{$oFcPayonePayment->getId()}">
+    <fieldset>
+        <h3 class="page-subheading">{$oFcPayonePayment->getTitle()}</h3>
+        {if $oFcPayonePayment->getDescription()}
+        <p><strong class="dark">{$oFcPayonePayment->getDescription()}</strong></p>
+        {/if}
+        <p>
+            {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_PAYMENT_ORDER_AMOUNT')}
+            <span class="price">{convertPrice price=$total}</span>
+            {if $use_taxes == 1}
+                {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_PAYMENT_ORDER_AMOUNT_TAX')}
+            {/if}
+        </p>
+        <div class="form-group required">
+            <label for="bankcountry" class="control-label col-lg-4">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_COUNTRY')}
+                <sup>*</sup></label>
+            <div class="col-lg-5">
+                <select id="bankcountry" name="fcpayone_form[bankcountry]" class="form-control"
+                        {if $blFcPayoneShowMandate}disabled="true"{/if}>
+                    {foreach from=$aFcPayoneCountries key=iso item=name}
+                        <option value="{$iso|escape:'html'}"
+                                {if $iso eq $fcpayone_form.bankcountry}selected="selected"{/if}>{$name|escape:'html'}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        {*<div class="form-group required">
+            <label class="control-label col-lg-4">{$oFcPayoneTranslator->translate('FC_PAYONE_PAYMENT_DEBIT_ACCOUNT_HOLDER')}
+                <sup>*</sup></label>
+            <div class="col-lg-5">
+                <input class="form-control" type="text" name="fcpayone_form[bankaccountholder]" maxlength="50"
+                       value="{if isset($fcpayone_form.bankaccountholder)}{$fcpayone_form.bankaccountholder}{/if}"
+                       {if $blFcPayoneShowMandate}disabled="true"{/if} />
+            </div>
+        </div>*}
+        {if $blFcPayoneShowMandate}
+            <input type="hidden" name="fcpayone_form[bankdatatype]" value="{$fcpayone_form.bankdatatype}">
+        {else}
+            {if $oFcPayonePayment->showBankAccount()}
+                <div id="bankdatatype" class="form-group required text-center">
+                    <input id="bankdatatype1" class="form-control" type="radio" name="fcpayone_form[bankdatatype]"
+                           value="1"{if ( !isset($fcpayone_form.bankdatatype) || !$fcpayone_form.bankdatatype ) || $fcpayone_form.bankdatatype == '1'} checked{/if} {if $blFcPayoneShowMandate}disabled="true"{/if} />
+                    <label for="bankdatatype1">
+                        {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_IBAN')}
+                        {if $oFcPayonePayment->showBic()}
+                        /{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_BIC')}
+                        {/if}
+                    </label>
+                    <input id="bankdatatype2" class="form-control" type="radio" name="fcpayone_form[bankdatatype]"
+                           value="2"{if $fcpayone_form.bankdatatype == '2'} checked{/if} {if $blFcPayoneShowMandate}disabled="true"{/if} />
+                    <label for="bankdatatype2">
+                        {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_BANK_ACCOUNT')}
+                        /{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_BANK_CODE')}
+                    </label>
+                </div>
+            {else}
+                <input type="hidden" name="fcpayone_form[bankdatatype]" value="{$fcpayone_form.bankdatatype}">
+            {/if}
+        {/if}
+        <div id="ibanbic">
+            <div class="form-group required">
+                <label for="iban" class="control-label col-lg-4">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_IBAN')}
+                    <sup>*</sup></label>
+                <div class="col-lg-5">
+                    <input id="iban" class="form-control js-payone-validate-input" type="text" name="fcpayone_form[iban]"
+                           maxlength="35" value="{if isset($fcpayone_form.iban)}{$fcpayone_form.iban}{/if}"
+                           {if $blFcPayoneShowMandate}disabled="true"{/if} />
+                </div>
+            </div>
+            {if $oFcPayonePayment->showBic()}
+                <div class="form-group required">
+                    <label for="bic" class="control-label col-lg-4">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_BIC')}
+                        <sup>*</sup></label>
+                    <div class="col-lg-5">
+                        <input id="bic" class="form-control js-payone-validate-input" type="text" name="fcpayone_form[bic]"
+                               maxlength="11" value="{if isset($fcpayone_form.bic)}{$fcpayone_form.bic}{/if}"
+                               {if $blFcPayoneShowMandate}disabled="true"{/if} />
+                    </div>
+                </div>
+            {/if}
+        </div>
+        {if $oFcPayonePayment->showBankAccount()}
+            <div id="bankaccountbankcode">
+                <div class="form-group required">
+                    <label for="bankaccount" class="control-label col-lg-4">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_BANK_ACCOUNT')}
+                        <sup>*</sup></label>
+                    <div class="col-lg-5">
+                        <input id="bankaccount" class="form-control js-payone-validate-input" type="text"
+                               name="fcpayone_form[bankaccount]" maxlength="14"
+                               value="{if isset($fcpayone_form.bankaccount)}{$fcpayone_form.bankaccount}{/if}"
+                               {if $blFcPayoneShowMandate}disabled="true"{/if} />
+                    </div>
+                </div>
+                <div class="form-group required">
+                    <label for="bankcode" class="control-label col-lg-4">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_BANK_CODE')}
+                        <sup>*</sup></label>
+                    <div class="col-lg-5">
+                        <input id="bankcode" class="form-control js-payone-validate-input" type="text" name="fcpayone_form[bankcode]"
+                               maxlength="8" value="{if isset($fcpayone_form.bankcode)}{$fcpayone_form.bankcode}{/if}"
+                               {if $blFcPayoneShowMandate}disabled="true"{/if} />
+                    </div>
+                </div>
+            </div>
+        {/if}
+        {if $blFcPayoneShowMandate}
+            <input type="hidden" name="fcpayone_form[bankcountry]"
+                   value="{if isset($fcpayone_form.bankcountry)}{$fcpayone_form.bankcountry}{/if}">
+            <input type="hidden" name="fcpayone_form[bankaccountholder]"
+                   value="{if isset($fcpayone_form.bankaccountholder)}{$fcpayone_form.bankaccountholder}{/if}">
+            <input type="hidden" name="fcpayone_form[bankdatatype]"
+                   value="{if isset($fcpayone_form.bankdatatype)}{$fcpayone_form.bankdatatype}{/if}">
+            <input type="hidden" name="fcpayone_form[iban]"
+                   value="{if isset($fcpayone_form.iban)}{$fcpayone_form.iban}{/if}">
+            <input type="hidden" name="fcpayone_form[bic]"
+                   value="{if isset($fcpayone_form.bic)}{$fcpayone_form.bic}{/if}">
+            <input type="hidden" name="fcpayone_form[bankaccount]"
+                   value="{if isset($fcpayone_form.bankaccount)}{$fcpayone_form.bankaccount}{/if}">
+            <input type="hidden" name="fcpayone_form[bankcode]"
+                   value="{if isset($fcpayone_form.bankcode)}{$fcpayone_form.bankcode}{/if}">
+            <div class="form-group">
+                <label class="control-label col-lg-4"></label>
+                <div class="col-lg-5">
+                    {$sFcPayoneMandateText}
+                </div>
+                {if $sFcPayoneMandateStatus == 'pending'}
+                    <label class="control-label col-lg-4">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_DEBIT_MANDATE_ACCEPT')}
+                        <sup>*</sup></label>
+                    <div class="col-lg-5">
+                        <div class="checkbox">
+                            <label>
+                                <input class="form-control js-payone-validate-input" type="checkbox"
+                                       name="fcpayone_form[mandate_accepted]" value="1"><br/>
+                            </label>
+                        </div>
+                    </div>
+                {else}
+                    <input type="hidden" name="fcpayone_form[mandate_accepted]" value="1"><br/>
+                {/if}
+            </div>
+            <input type="hidden" name="fcpayone_form[mandate_loaded]" value="1">
+        {else}
+            <input type="hidden" name="fcpayone_form[mandate_load]" value="1">
+        {/if}
+    </fieldset>
+</div>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Lesser General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ PAYONE Prestashop Connector is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with PAYONE Prestashop Connector. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  ~ PHP version 5
+  ~
+  ~ @author    FATCHIP GmbH <support@fatchip.de>
+  ~ @copyright 2003 - 2017 Payone GmbH
+  ~ @license   <http://www.gnu.org/licenses/> GNU Lesser General Public License
+  ~ @link      http://www.payone.de
+  -->
+
+<module>
+    <name>fcpayone</name>
+    <displayName><![CDATA[FC_PAYONE_BACKEND_TITLE]]></displayName>
+    <version><![CDATA[1.0.0]]></version>
+    <description><![CDATA[FC_PAYONE_BACKEND_DESCRIPTION]]></description>
+    <author><![CDATA[FATCHIP GmbH]]></author>
+    <tab><![CDATA[payments_gateways]]></tab>
+    <confirmUninstall><![CDATA[FC_PAYONE_BACKEND_CONFIRM_UNINSTALL]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+    <limited_countries></limited_countries>
+</module>
