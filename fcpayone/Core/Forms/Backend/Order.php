@@ -328,5 +328,4 @@ class Order extends Base
     {
         return str_replace(',', '.', \Tools::getValue('payone_amount'));
     }
-
 }

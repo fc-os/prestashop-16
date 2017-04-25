@@ -43,5 +43,4 @@ class Auth extends Base
         $this->setParam('solution_version', $this->getHelper()->fcPayoneGetModuleVersion());
         $this->setParam('api_version', '3.10');
     }
-
 }

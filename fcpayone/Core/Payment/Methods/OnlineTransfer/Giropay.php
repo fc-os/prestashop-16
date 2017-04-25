@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -29,47 +28,44 @@ class Giropay extends OnlineTransfer
 
     /**
      * ID
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $sId = 'onlinetransfer_giropay';
-    
+
     /**
      * ID of parent payment
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $sParentId = 'onlinetransfer';
 
     /**
      * Clearing type
-     * 
+     *
      * @var string
      */
     protected $sSubClearingType = 'GPY';
 
     /**
      * Array with whitelist country iso codes
-     * 
+     *
      * @var array
      */
-    protected $aCountryWhitelist = array(
-       # 'DE',
+    protected $aCountryWhitelist = array(# 'DE',
     );
-    
+
     /**
      * Marker for sub payments
-     * 
-     * @var boolean 
+     *
+     * @var boolean
      */
     protected $blHasSubPayments = false;
-    
+
     /**
      * Flag for iban/bic form fields
-     * 
+     *
      * @var boolean
      */
     protected $blHasIbanBic = true;
-
-
 }

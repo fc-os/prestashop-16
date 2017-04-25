@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -114,7 +113,7 @@ class Base extends \Payone\Validation\Base
     public function validateBic($sString)
     {
         $oPayment = $this->getValidationPayment();
-        if ( method_exists($oPayment, 'showBic') && !$oPayment->showBic() ) {
+        if (method_exists($oPayment, 'showBic') && !$oPayment->showBic()) {
             return;
         }
 
@@ -122,5 +121,4 @@ class Base extends \Payone\Validation\Base
             throw new \Exception('FC_PAYONE_ERROR_BIC_INVALID');
         }
     }
-
 }

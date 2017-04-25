@@ -26,37 +26,5 @@ use Payone\Base\Registry;
 class FcPayoneBase extends \PaymentModule
 {
 
-    /**
-     * Module conctructer sets name and basic functions
-     */
-    public function __construct()
-    {
-        $this->name = 'fcpayone';
-        $this->tab = 'payments_gateways';
-        $this->version = '1.0.0';
-        $this->author = 'FATCHIP GmbH';
-        $this->need_instance = 0;
-        #$this->module_key = 'd8c52a8f94d05bebfbd5848a138a33b7';
-        $this->bootstrap = true;
-        $this->is_eu_compatible = 1;
-        $this->currencies = true;
-        $this->currencies_mode = 'checkbox';
-        parent::__construct();
-        $this->secure_key = Tools::encrypt($this->name);
-        $oTranslator = Registry::getTranslator();
-        $this->displayName = 'PAYONE GmbH Connector';
-        $this->description = 'PAYONE GmbH Connector for Prestashop';
-        $this->confirmUninstall = $oTranslator->translate('FC_PAYONE_BACKEND_CONFIRM_UNINSTALL');
-        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
-    }
 
-    /**
-     * Returns helper
-     *
-     * @return \Payone\Helper\Helper
-     */
-    protected function fcGetPayoneHelper()
-    {
-        return Registry::getHelper();
-    }
 }

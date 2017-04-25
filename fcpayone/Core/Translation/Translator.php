@@ -52,7 +52,7 @@ class Translator
     public static function translate($sString)
     {
         $sTranslation = \Translate::getModuleTranslation('fcpayone', $sString, 'translations');
-        if ( $sTranslation == $sString ) {
+        if ($sTranslation == $sString) {
             $sTranslation = self::getTranslationFromDefaultLang($sString);
         }
         return $sTranslation;
@@ -62,10 +62,11 @@ class Translator
      * Loads default lang
      * (en)
      */
-    protected static function loadDefaultLang() {
-        if ( self::$blDefaultLangLoaded == false ) {
-            $sDefaultLangFile = Registry::getHelper()->getModulePath().'translations/en.php';
-            if ( file_exists($sDefaultLangFile) ) {
+    protected static function loadDefaultLang()
+    {
+        if (self::$blDefaultLangLoaded == false) {
+            $sDefaultLangFile = Registry::getHelper()->getModulePath() . 'translations/en.php';
+            if (file_exists($sDefaultLangFile)) {
                 $_MODULE = array();
                 require_once $sDefaultLangFile;
                 self::$aDefaultLang = $_MODULE;
@@ -79,7 +80,8 @@ class Translator
      *
      * @return array
      */
-    protected static function getDefaultLang() {
+    protected static function getDefaultLang()
+    {
         self::loadDefaultLang();
         return self::$aDefaultLang;
     }
@@ -90,13 +92,13 @@ class Translator
      * @param $sString
      * @return string
      */
-    protected static function getTranslationFromDefaultLang($sString) {
-        $sKey = '<{fcpayone}prestashop>translations_'.md5($sString);
+    protected static function getTranslationFromDefaultLang($sString)
+    {
+        $sKey = '<{fcpayone}prestashop>translations_' . md5($sString);
         $aDefaultLang = self::getDefaultLang();
-        if ( $aDefaultLang && isset($aDefaultLang[$sKey]) ) {
+        if ($aDefaultLang && isset($aDefaultLang[$sKey])) {
             return htmlspecialchars($aDefaultLang[$sKey], ENT_COMPAT, 'UTF-8');
         }
         return $sString;
     }
-
 }

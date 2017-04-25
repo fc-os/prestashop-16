@@ -38,7 +38,8 @@ class Capture extends Base
      *
      * @param $blSettle
      */
-    public function setAccountSettlement($blSettle) {
+    public function setAccountSettlement($blSettle)
+    {
         $this->blSettleAccount = $blSettle;
     }
 
@@ -47,7 +48,8 @@ class Capture extends Base
      *
      * @return boolean
      */
-    protected function getAccountSettlement() {
+    protected function getAccountSettlement()
+    {
         return $this->blSettleAccount;
     }
 
@@ -66,8 +68,8 @@ class Capture extends Base
     protected function setOrderDataToRequest()
     {
         $blReturn = parent::setOrderDataToRequest();
-        if ( $blReturn ) {
-            if ( $this->getAccountSettlement() ) {
+        if ($blReturn) {
+            if ($this->getAccountSettlement()) {
                 $this->setParam('settleaccount', 'auto');
             } else {
                 $this->setParam('settleaccount', 'no');

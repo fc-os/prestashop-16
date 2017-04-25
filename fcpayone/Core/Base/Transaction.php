@@ -206,7 +206,7 @@ class Transaction
      */
     public function updateOrderId($iTxId, $iOrderId)
     {
-        $aData['id_order'] = \pSQL($iOrderId);
+        $aData = array('id_order' => \pSQL($iOrderId));
         return (bool)\Db::getInstance()->update(self::getTable(), $aData, "txid = '{$iTxId}'");
     }
 
@@ -283,15 +283,21 @@ class Transaction
 
             if ($dLastReceivable != $dReceivable || ($dLastReceivable == $dReceivable && $dPayment == $dLastPayment)) {
                 $aAdminTransaction1 = $aTransaction;
-                $aAdminTransaction1['txaction_langident'] = $this->getActionLangIdent('receivable',
-                    $aAdminTransaction1['txaction'], ($dReceivable - $dLastReceivable));
+                $aAdminTransaction1['txaction_langident'] = $this->getActionLangIdent(
+                    'receivable',
+                    $aAdminTransaction1['txaction'],
+                    ($dReceivable - $dLastReceivable)
+                );
                 $aAdminTransaction1['calculated_receivable'] = ($dReceivable - $dLastReceivable);
                 $aAdminTransactions[] = $aAdminTransaction1;
             }
             if ($dPayment != $dLastPayment) {
                 $aAdminTransaction2 = $aTransaction;
-                $aAdminTransaction2['txaction_langident'] = $this->getActionLangIdent('payment',
-                    $aAdminTransaction2['txaction'], ($dPayment - $dLastPayment));
+                $aAdminTransaction2['txaction_langident'] = $this->getActionLangIdent(
+                    'payment',
+                    $aAdminTransaction2['txaction'],
+                    ($dPayment - $dLastPayment)
+                );
                 $aAdminTransaction2['calculated_payment'] = ($dPayment - $dLastPayment);
                 $aAdminTransactions[] = $aAdminTransaction2;
             }

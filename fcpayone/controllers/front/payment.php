@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -45,7 +44,8 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
         Context::getContext()->cookie->sFcPayoneUserAgent = $_SERVER['HTTP_USER_AGENT'];
 
         $oSelectedPayment = Registry::getPayment()->getSelectedPaymentMethod();
-        Registry::getLog()->log('process payment: '.$oSelectedPayment->getId(),1,array(null,'Cart',$this->context->cart->id ));
+        Registry::getLog()->log('process payment: ' . $oSelectedPayment->getId(), 1,
+            array(null, 'Cart', $this->context->cart->id));
         $blSuccess = $this->fcPayonePaymentPreProcess($oSelectedPayment);
         if ($blSuccess) {
             if (Tools::isSubmit('payone_validate') && $this->fcPayoneValidateOrder()) {
@@ -69,7 +69,7 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
 
         $cart = $this->context->cart;
         $oSelectedPayment = Registry::getPayment()->getSelectedMainPaymentMethod();
-        if ( $oSelectedPayment->isGroupedPayment() ) {
+        if ($oSelectedPayment->isGroupedPayment()) {
             $oSelectedPayment = Registry::getPayment()->getSelectedPaymentMethod();
         }
         $oFrontendForm = new PayoneFrontendForm();
@@ -125,15 +125,24 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
         if ($blError) {
             $sState = Configuration::get('PS_OS_ERROR');
         }
-        Registry::getLog()->log('create order',1,array(null,'Cart',$oCart->id ));
-        $this->module->validateOrder($sCartId, $sState, $dTotal, $sPaymentTitle, null,
-            array('transaction_id' => \Context::getContext()->cookie->iFcPayoneTransactionId), (int)$oCurrency->id, false, $oCustomer->secure_key);
+        Registry::getLog()->log('create order', 1, array(null, 'Cart', $oCart->id));
+        $this->module->validateOrder(
+            $sCartId,
+            $sState,
+            $dTotal,
+            $sPaymentTitle,
+            null,
+            array('transaction_id' => \Context::getContext()->cookie->iFcPayoneTransactionId),
+            (int)$oCurrency->id,
+            false,
+            $oCustomer->secure_key
+        );
         $this->fcPayonePostOrderAction($oSelectedPayment, clone $this->context, $blError);
 
         $sUrl = 'index.php?controller=order-confirmation&id_cart=' . $sCartId .
             '&id_module=' . $this->module->id . '&id_order=' . $this->module->currentOrder .
             '&key=' . $oCustomer->secure_key . '&payone_payment=' . $oSelectedPayment->getId();
-        Registry::getLog()->log('redirect to confirmation',1,array(null,'Cart',$oCart->id ));
+        Registry::getLog()->log('redirect to confirmation', 1, array(null, 'Cart', $oCart->id));
         Tools::redirect($sUrl);
     }
 
@@ -144,7 +153,7 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
      */
     protected function fcPayoneExecutePayment()
     {
-        Registry::getLog()->log('start payment execution',1,array(null,'Cart',$this->context->cart->id ));
+        Registry::getLog()->log('start payment execution', 1, array(null, 'Cart', $this->context->cart->id));
         $oSelectedPayment = Registry::getPayment()->getSelectedPaymentMethod();
         $oForm = new PayoneFrontendForm();
         $oRequest = new Request();
@@ -153,11 +162,14 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
         if ($blProcessed) {
             $oResponse = new Response();
             $oResponse->setResponse($oRequest->getResponse());
-            Registry::getLog()->log('process payment response',1,array(null,'Cart',$this->context->cart->id ));
+            Registry::getLog()->log('process payment response', 1, array(null, 'Cart', $this->context->cart->id));
             return $oResponse->processPayment();
         } else {
-            Registry::getErrorHandler()->setError('order',
-                'FC_PAYONE_ERROR_PAYMENT_EXECUTION_FAILED', true);
+            Registry::getErrorHandler()->setError(
+                'order',
+                'FC_PAYONE_ERROR_PAYMENT_EXECUTION_FAILED',
+                true
+            );
         }
 
         return false;
@@ -284,9 +296,9 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
                         $error = sprintf(Tools::displayError('CartRule ID %1s (%2s) used in this cart is not valid and has been withdrawn from cart'),
                             (int)$rule->id, $rule_name);
                         Registry::getLog()->log($error, 3, array(
-                            '0000002',
-                            'Cart',
-                            (int)$this->context->cart->id
+                                '0000002',
+                                'Cart',
+                                (int)$this->context->cart->id
                             )
                         );
                     }
@@ -314,8 +326,9 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
 
         // If some delivery options are not defined, or not valid, use the first valid option
         foreach ($delivery_option_list as $id_address => $package) {
-            if (!isset($cart_delivery_option[$id_address]) || !array_key_exists($cart_delivery_option[$id_address],
-                    $package)
+            if (
+                !isset($cart_delivery_option[$id_address]) ||
+                !array_key_exists($cart_delivery_option[$id_address], $package)
             ) {
                 foreach ($package as $key => $val) {
                     $cart_delivery_option[$id_address] = $key;
@@ -328,8 +341,10 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
             foreach ($delivery_option_list[$id_address][$key_carriers]['carrier_list'] as $id_carrier => $data) {
                 foreach ($data['package_list'] as $id_package) {
                     // Rewrite the id_warehouse
-                    $package_list[$id_address][$id_package]['id_warehouse'] = (int)$this->context->cart->getPackageIdWarehouse($package_list[$id_address][$id_package],
-                        (int)$id_carrier);
+                    $package_list[$id_address][$id_package]['id_warehouse'] = (int)$this->context->cart->getPackageIdWarehouse(
+                        $package_list[$id_address][$id_package],
+                        (int)$id_carrier
+                    );
                     $package_list[$id_address][$id_package]['id_carrier'] = $id_carrier;
                 }
             }
@@ -339,8 +354,10 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
             foreach ($packageByAddress as $id_package => $package) {
                 if (Configuration::get('PS_TAX_ADDRESS_TYPE') == 'id_address_delivery') {
                     $address = new Address((int)$id_address);
-                    $this->context->country = new Country((int)$address->id_country,
-                        (int)$this->context->cart->id_lang);
+                    $this->context->country = new Country(
+                        (int)$address->id_country,
+                        (int)$this->context->cart->id_lang
+                    );
                     if (!$this->context->country->active) {
                         Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_COUNTRY_INVALID',
                             true);
@@ -350,7 +367,8 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
             }
         }
 
-        // The country can only change if the address used for the calculation is the delivery address, and if multi-shipping is activated
+        // The country can only change if the address used for the calculation is the delivery address,
+        // and if multi-shipping is activated
         if (Configuration::get('PS_TAX_ADDRESS_TYPE') == 'id_address_delivery') {
             $this->context->country = $context_country;
         }
@@ -378,7 +396,11 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
         $oValidation->setAfterRedirect($blAfterRedirect);
         $sToken = Tools::getToken(false);
         if ($oValidation->validateCheckout($this->context, $sToken) == false) {
-            Registry::getLog()->log('base checkout validation failed',3,array(null,'Cart',$this->context->cart->id ));
+            Registry::getLog()->log(
+                'base checkout validation failed',
+                3,
+                array(null, 'Cart', $this->context->cart->id)
+            );
             return false;
         }
 
@@ -389,7 +411,7 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
         $oSelectedPayment = Registry::getPayment()->getSelectedPaymentMethod();
 
         if ($oSelectedPayment && !$this->fcPayonePaymentSpecificChecks($oSelectedPayment, $blAfterRedirect)) {
-            Registry::getLog()->log('payment validation failed',3,array(null,'Cart',$this->context->cart->id ));
+            Registry::getLog()->log('payment validation failed', 3, array(null, 'Cart', $this->context->cart->id));
             return false;
         }
         if ($oValidation->validatePayment($oSelectedPayment) &&
@@ -400,7 +422,7 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
         ) {
             return true;
         }
-        Registry::getLog()->log('checkout validation failed',3,array(null,'Cart',$this->context->cart->id ));
+        Registry::getLog()->log('checkout validation failed', 3, array(null, 'Cart', $this->context->cart->id));
         return false;
     }
 
@@ -458,7 +480,8 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
     {
         if ($sTxId) {
             $sCleanTxId = (int)\pSQL($sTxId);
-            $sQ = "select reference from " . _DB_PREFIX_ . Request::getTable() . " where txid = '{$sCleanTxId}' order by date asc";
+            $sQ = "select reference from " . _DB_PREFIX_ . Request::getTable() .
+                " where txid = '{$sCleanTxId}' order by date asc";
             $sReference = \Db::getInstance()->getValue($sQ);
             if ($sReference) {
                 return $sReference;
@@ -519,7 +542,9 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
             'iFcPayoneConditions' => (int)Configuration::get('PS_CONDITIONS'),
         ));
         $this->context->controller->addJquery();
-        $this->context->controller->addJS(Registry::getHelper()->getModulePath() . 'views/js/frontend/fcpayoneterms.js');
+        $this->context->controller->addJS(
+            Registry::getHelper()->getModulePath() . 'views/js/frontend/fcpayoneterms.js'
+        );
     }
 
     /**
@@ -576,5 +601,4 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
     protected function fcPayoneAddPaymentSpecifics($oPayment, $oForm)
     {
     }
-
 }

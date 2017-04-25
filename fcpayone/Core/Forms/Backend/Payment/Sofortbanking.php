@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -28,7 +27,6 @@ class Sofortbanking extends OnlineTransfer
 {
     /**
      * Returns form fields for sofort form
-
      * @return array
      */
     public function getForm()
@@ -47,7 +45,7 @@ class Sofortbanking extends OnlineTransfer
                     array(
                         'type' => 'switch',
                         'label' => $this->translate('FC_PAYONE_BACKEND_PAYMENT_SHOW_IBANBIC'),
-                        'name' => 'FC_PAYONE_PAYMENT_SHOW_IBANBIC_'.$this->getPayment()->getId(true),
+                        'name' => 'FC_PAYONE_PAYMENT_SHOW_IBANBIC_' . $this->getPayment()->getId(true),
                         'is_bool' => true,
                         'values' => array(
                             array(

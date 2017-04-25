@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -165,7 +164,10 @@ class Reference
      */
     public static function updateTxId($sReference, $sTxId)
     {
-        \Db::getInstance()->update(self::getTable(), array('txid' => $sTxId),
-            "concat(reference_prefix,reference) = '{$sReference}'");
+        \Db::getInstance()->update(
+            self::getTable(),
+            array('txid' => $sTxId),
+            "concat(reference_prefix,reference) = '{$sReference}'"
+        );
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -34,11 +33,10 @@ use Payone\Base\Registry;
 
 $oModule = new FcPayoneBase();
 
-if ( \Tools::getValue('payone_secure_key') != $oModule->secure_key ) {
+if (\Tools::getValue('payone_secure_key') != $oModule->secure_key) {
     echo \Tools::jsonEncode(array('errorMessages' => array('Secure key is not valid!')));
     exit;
 }
-
 
 class ValidationAjax
 {
@@ -130,10 +128,9 @@ class ValidationAjax
         if ($aForm['bankdatatype'] == 1) {
             $this->validateIban($oValidation);
 
-            if ( \Configuration::get('FC_PAYONE_PAYMENT_SHOW_BIC_DEBIT') ) {
+            if (\Configuration::get('FC_PAYONE_PAYMENT_SHOW_BIC_DEBIT')) {
                 $this->validateBic($oValidation);
             }
-
         } else {
             $this->validateBankAccount($oValidation);
             $this->validateBankCode($oValidation);

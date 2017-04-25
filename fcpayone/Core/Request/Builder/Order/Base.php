@@ -125,7 +125,7 @@ class Base extends \Payone\Request\Builder\Base
         if (\Validate::isLoadedObject($oOrder)) {
             $oCurrency = Registry::getHelperPrestashop()->fcPayoneGetCurrency($oOrder->id_currency);
             $this->setParam('currency', $oCurrency->iso_code);
-            $this->setParam('amount',  Registry::getHelper()->getConvertedAmount($this->getAmount()));
+            $this->setParam('amount', Registry::getHelper()->getConvertedAmount($this->getAmount()));
 
             $oLanguage = Registry::getHelperPrestashop()->fcPayoneGetLanguage($oOrder->id_lang);
             $this->setParam('language', $oLanguage->iso_code);

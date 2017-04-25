@@ -23,7 +23,6 @@
 
 namespace Payone\Validation\Payment;
 
-
 class PayPal extends Base
 {
     /**

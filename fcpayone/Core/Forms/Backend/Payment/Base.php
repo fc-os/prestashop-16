@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -107,11 +106,11 @@ class Base extends \Payone\Forms\Backend\Base
     protected function getFieldTransactionMapping($sState)
     {
         $sStateIdent = \Tools::strtoupper($sState);
+        $sName = 'FC_PAYONE_PAYMENT_TRANSACTION_MAPPING_' . \Tools::strtoupper($this->getIdent()) . '_' . $sStateIdent;
         $aField = array(
             'col' => 3,
             'type' => 'select',
-            #'desc' => Registry::getTranslator()->translate('FC_PAYONE_BACKEND_PAYMENT_TRANSACTION_MAPPING_' . $sStateIdent . '_DESC'),
-            'name' => 'FC_PAYONE_PAYMENT_TRANSACTION_MAPPING_' . \Tools::strtoupper($this->getIdent()) . '_' . $sStateIdent,
+            'name' => $sName,
             'label' => $this->translate('FC_PAYONE_BACKEND_PAYMENT_TRANSACTION_MAPPING_' . $sStateIdent),
             'options' => array(
                 'id' => 'id_option',

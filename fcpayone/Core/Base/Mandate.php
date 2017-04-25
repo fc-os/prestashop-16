@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -279,7 +278,9 @@ class Mandate
         if (!$oContext) {
             $oContext = \Context::getContext();
         }
-        if (isset($oContext->cookie->sFcPayoneMandate) && ($aMandate = unserialize($oContext->cookie->sFcPayoneMandate))) {
+        if (isset($oContext->cookie->sFcPayoneMandate) &&
+            ($aMandate = unserialize($oContext->cookie->sFcPayoneMandate))
+        ) {
             $this->setMandateIdent($aMandate['mandate_identification']);
             $this->setMandateStatus($aMandate['mandate_status']);
             $this->setMandateText(urldecode($aMandate['mandate_text']));

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -29,30 +28,29 @@ class MasterCard extends CreditCard
 
     /**
      * ID
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $sId = 'creditcard_mastercard';
 
     /**
      * ID of parent payment
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $sParentId = 'creditcard';
 
     /**
      * Clearing type
-     * 
+     *
      * @var string
      */
     protected $sSubClearingType = 'M';
 
     /**
      * Marker for sub payments
-     * 
-     * @var boolean 
+     *
+     * @var boolean
      */
     protected $blHasSubPayments = false;
-
 }

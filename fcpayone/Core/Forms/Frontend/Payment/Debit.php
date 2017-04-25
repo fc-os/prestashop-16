@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -38,8 +37,9 @@ class Debit extends Base
     {
         $oMandate = new Mandate();
         if ($oMandate->setMandateFromContext($this->getContext()) && (
-            $oMandate->getMandateStatus() == 'pending' || $oMandate->getMandateStatus() == 'active')
-            && $oMandate->getMandateText() != '') {
+                $oMandate->getMandateStatus() == 'pending' || $oMandate->getMandateStatus() == 'active')
+            && $oMandate->getMandateText() != ''
+        ) {
             return $oMandate;
         }
     }

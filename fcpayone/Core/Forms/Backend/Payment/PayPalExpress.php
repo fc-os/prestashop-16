@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -68,11 +67,10 @@ class PayPalExpress extends Base
      */
     public function handleUpdate($sKey)
     {
-
         if (strpos($sKey, 'FC_PAYONE_PAYPAL_EXPRESS_IMG') !== false) {
             foreach ($_FILES as $sFileKey => $aFile) {
-                if ((strpos($sFileKey,
-                        $sKey)) !== false && $_FILES[$sFileKey]['name'] != '' && $_FILES[$sFileKey]['error'] == 0
+                if ((strpos($sFileKey, $sKey)) !== false &&
+                    $_FILES[$sFileKey]['name'] != '' && $_FILES[$sFileKey]['error'] == 0
                 ) {
                     $sError = \ImageManager::validateUpload($_FILES[$sFileKey], 4000000);
                     if ($sError) {
@@ -93,7 +91,6 @@ class PayPalExpress extends Base
                     }
                 }
             }
-
         } else {
             parent::handleUpdate($sKey);
         }
@@ -117,10 +114,7 @@ class PayPalExpress extends Base
             } else {
                 $aFields[] = $aInput['name'];
             }
-
         }
         return $aFields;
     }
-
-
 }

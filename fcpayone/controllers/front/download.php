@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -44,10 +43,8 @@ class FcPayoneDownloadModuleFrontController extends ModuleFrontController
                 $oMandate->outputMandateFile();
             }
         } else {
-            Registry::getLog()->log('mandate download check failed',2,array(null,'Mandate Download'));
+            Registry::getLog()->log('mandate download check failed', 2, array(null, 'Mandate Download'));
         }
         exit;
     }
-
-
 }

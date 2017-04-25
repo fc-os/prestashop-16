@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -138,9 +137,10 @@ class Request
      * @param $sParam
      * @return mixed
      */
-    protected function getParamFromAdditionalSaveData($sParam) {
+    protected function getParamFromAdditionalSaveData($sParam)
+    {
         $aData = $this->getAdditionalSaveData();
-        if ( isset($aData[$sParam])) {
+        if (isset($aData[$sParam])) {
             return $aData[$sParam];
         }
     }
@@ -245,8 +245,8 @@ class Request
         }
 
         $aAdditionalSaveData = $this->getAdditionalSaveData();
-        if ( isset($aAdditionalSaveData) && count($aAdditionalSaveData) > 0 ) {
-            foreach( $aAdditionalSaveData as $sParam => $sValue ) {
+        if (isset($aAdditionalSaveData) && count($aAdditionalSaveData) > 0) {
+            foreach ($aAdditionalSaveData as $sParam => $sValue) {
                 $aData[$sParam] = \pSQL($sValue);
             }
         }
@@ -298,7 +298,7 @@ class Request
         try {
             $this->buildPaymentRequest($oContext, $oSelectedPayment, $aForm);
         } catch (\Exception $oEx) {
-           Registry::getErrorHandler()->setError('request', $oEx->getMessage());
+            Registry::getErrorHandler()->setError('request', $oEx->getMessage());
         }
         return $this->sendRequest($this->getRequest());
     }
@@ -471,10 +471,9 @@ class Request
             $oBuilder->setBankData($aBankData);
             $oBuilder->build();
             $this->setRequest($oBuilder->getParams());
-        } catch(\Exception $oEx) {
+        } catch (\Exception $oEx) {
             Registry::getErrorHandler()->setError('request', $oEx->getMessage());
         }
         return $this->sendRequest($this->getRequest());
     }
-
 }

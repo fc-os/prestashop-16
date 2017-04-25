@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -38,7 +37,7 @@ class FcPayonePaymentPayPalExpressModuleFrontController extends FcPayonePaymentM
         Context::getContext()->cookie->sFcPayoneUserAgent = $_SERVER['HTTP_USER_AGENT'];
         $oSelectedPayment = Registry::getPayment()->getSelectedPaymentMethod();
         $blSuccess = $this->fcPayonePaymentPreProcess($oSelectedPayment);
-        if ($blSuccess ) {
+        if ($blSuccess) {
             $this->fcPostProcessPayPalExpress();
         }
     }
@@ -67,7 +66,8 @@ class FcPayonePaymentPayPalExpressModuleFrontController extends FcPayonePaymentM
     protected function fcPayoneCheckPayPalExpressRedirect()
     {
         if (\Tools::getValue('payone_redirect') == 'back' || \Tools::getValue('payone_redirect') == 'error') {
-            Registry::getLog()->log('returned from paypal through back|error url ',1,array(null,'Cart',$this->context->cart->id ));
+            Registry::getLog()->log('returned from paypal through back|error url ', 1,
+                array(null, 'Cart', $this->context->cart->id));
             $this->fcPayoneDeleteWorkOrderId();
             return false;
         }
@@ -154,7 +154,7 @@ class FcPayonePaymentPayPalExpressModuleFrontController extends FcPayonePaymentM
         } else {
             Registry::getErrorHandler()->setError('order',
                 'FC_PAYONE_ERROR_PAYPAL_EXPRESS_REQUEST_FAILED', true);
-            Registry::getLog()->log('paypal express request failed',3,array(null,'Cart',$this->context->cart->id ));
+            Registry::getLog()->log('paypal express request failed', 3, array(null, 'Cart', $this->context->cart->id));
         }
         if (!$blSuccess) {
             $this->fcPayoneDeleteWorkOrderId();
@@ -185,5 +185,4 @@ class FcPayonePaymentPayPalExpressModuleFrontController extends FcPayonePaymentM
     {
         return parent::fcPayonePaymentPreProcess($oSelectedPayment, false);
     }
-
 }

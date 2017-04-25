@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -28,8 +27,8 @@ class OnlineTransfer extends Base
 {
 
     /**
-     * Gets form data 
-     * 
+     * Gets form data
+     *
      * @return array
      */
     public function getFormData()
@@ -45,7 +44,7 @@ class OnlineTransfer extends Base
 
     /**
      * Sets form data after submit
-     * 
+     *
      * @return void
      */
     public function setFormData()
@@ -54,7 +53,7 @@ class OnlineTransfer extends Base
         $this->setJsValidation(); //jquery included
         $this->getController()->addJS($this->getHelper()->getModulePath() . 'views/js/frontend/fcpayoneonlinetransfer.js');
         $this->setAjaxValidationUrl();
-             
+
         $aValidSubPayments = $this->getFormPayment()->getValidSubPayments();
         $this->getSmarty()->assign('aFcPayoneSubPayments', $aValidSubPayments);
     }
