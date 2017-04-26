@@ -145,7 +145,7 @@
             <div class="form-group">
                 <label class="control-label col-lg-4"></label>
                 <div class="col-lg-5">
-                    {$sFcPayoneMandateText|escape:'html':'UTF-8'}
+                    {$sFcPayoneMandateText}
                 </div>
                 {if $sFcPayoneMandateStatus == 'pending'}
                     <label class="control-label col-lg-4">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_DEBIT_MANDATE_ACCEPT')|escape:'html':'UTF-8'}
