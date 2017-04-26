@@ -23,7 +23,6 @@
 
 namespace Payone\Base;
 
-
 class Log
 {
     /**
@@ -48,8 +47,13 @@ class Log
             $sErrorCode = isset($aPrestaLog[0]) && $aPrestaLog[0] != null ? $aPrestaLog[0] : null;
             $sObjectType = isset($aPrestaLog[1]) && $aPrestaLog[1] != null ? $aPrestaLog[1] : null;
             $iObjectId = isset($aPrestaLog[2]) && $aPrestaLog[2] != null ? $aPrestaLog[2] : null;
-            \PrestaShopLogger::addLog($sMessagePrefix.$sMessage, $iSeverity, $sErrorCode, $sObjectType,
-                (int)$iObjectId);
+            \PrestaShopLogger::addLog(
+                $sMessagePrefix . $sMessage,
+                $iSeverity,
+                $sErrorCode,
+                $sObjectType,
+                (int)$iObjectId
+            );
         }
     }
 }

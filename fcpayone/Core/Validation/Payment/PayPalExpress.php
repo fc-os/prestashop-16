@@ -21,9 +21,7 @@
  * @link      http://www.payone.de
  */
 
-
 namespace Payone\Validation\Payment;
-
 
 class PayPalExpress extends Base
 {

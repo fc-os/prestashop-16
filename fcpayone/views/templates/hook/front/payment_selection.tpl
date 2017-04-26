@@ -32,9 +32,9 @@
                 {assign var=sFcPayonePaymentId value=$oFcPayonePayment->getId()}
                 {assign var=sFcPayoneSubPaymentId value=false}
             {/if}
-            <a href="{$link->getModuleLink($sFcPayoneModuleId, $oFcPayonePayment->getController(),['payone_payment' => $sFcPayonePaymentId,'payone_payment_sub' => $sFcPayoneSubPaymentId])|escape:'html'}" title="{$oFcPayonePayment->getTitle()}">
-                {if $oFcPayonePayment->getImage()}<img src="{$oFcPayonePayment->getImage()}" alt="{$oFcPayonePayment->getTitle()}" width="86" height="49"/>{/if}
-                {$oFcPayonePayment->getTitle()}
+            <a href="{$link->getModuleLink($sFcPayoneModuleId, $oFcPayonePayment->getController(),['payone_payment' => $sFcPayonePaymentId,'payone_payment_sub' => $sFcPayoneSubPaymentId])|escape:'html':'UTF-8'}" title="{$oFcPayonePayment->getTitle()|escape:'html':'UTF-8'}">
+                {if $oFcPayonePayment->getImage()|escape:'html':'UTF-8'}<img src="{$oFcPayonePayment->getImage()|escape:'html':'UTF-8'}" alt="{$oFcPayonePayment->getTitle()|escape:'html':'UTF-8'}" width="86" height="49"/>{/if}
+                {$oFcPayonePayment->getTitle()|escape:'html':'UTF-8'}
             </a>
         </p>
     </div>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -248,7 +247,7 @@ class Base
     {
         $sIdent = 'FC_PAYONE_PAYMENT_DESC_' . $this->getId(true);
         $sDesc = Registry::getTranslator()->translate($sIdent);
-        if ( $sIdent != $sDesc ) {
+        if ($sIdent != $sDesc) {
             return $sDesc;
         }
     }
@@ -428,7 +427,8 @@ class Base
      *
      * @return bool
      */
-    public function isAccountSettlementAllowed() {
+    public function isAccountSettlementAllowed()
+    {
         return $this->blAllowAccountSettlement;
     }
 
@@ -438,7 +438,8 @@ class Base
      *
      * @return bool
      */
-    public function isBankDataNeededForDebit() {
+    public function isBankDataNeededForDebit()
+    {
         return $this->blNeedBankDataForDebit;
     }
 
@@ -549,7 +550,7 @@ class Base
         if ($this->aSubPayments == null) {
             $this->aSubPayments = array();
             $aSubPayments = Registry::getPayment()->getSubPaymentMethods((new \ReflectionClass($this))->getShortName());
-            if ( is_array($aSubPayments) ) {
+            if (is_array($aSubPayments)) {
                 $this->aSubPayments = $aSubPayments;
             }
         }
@@ -614,7 +615,8 @@ class Base
      *
      * @return string
      */
-    public function getController() {
+    public function getController()
+    {
         return $this->sController;
     }
 
@@ -624,7 +626,8 @@ class Base
      *
      * @return bool
      */
-    public function isGroupedPayment() {
+    public function isGroupedPayment()
+    {
         return $this->isGroupedPayment;
     }
 }

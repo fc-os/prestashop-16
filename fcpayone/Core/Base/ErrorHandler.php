@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,6 +20,7 @@
  * @license   <http://www.gnu.org/licenses/> GNU Lesser General Public License
  * @link      http://www.payone.de
  */
+
 namespace Payone\Base;
 
 class ErrorHandler
@@ -196,7 +196,9 @@ class ErrorHandler
     {
         $aErrorKeys = array();
         $aSessionErrorKeys = unserialize($this->getSessionVar($this->getErrorKeyIdent()));
-        if ($sType && isset($aSessionErrorKeys[$sType]) && is_array($aSessionErrorKeys[$sType]) && count($aSessionErrorKeys[$sType]) > 0) {
+        if ($sType && isset($aSessionErrorKeys[$sType]) &&
+            is_array($aSessionErrorKeys[$sType]) && count($aSessionErrorKeys[$sType]) > 0
+        ) {
             foreach ($aSessionErrorKeys[$sType] as $sErrorKey) {
                 $aErrorKeys[] = $sErrorKey;
             }

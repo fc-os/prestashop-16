@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,21 +23,16 @@
 
 include_once(dirname(__FILE__) . '/../../../../config/config.inc.php');
 include_once(dirname(__FILE__) . '/../../../../init.php');
-require_once dirname(__FILE__) . '/../Validation/Base.php';
-require_once dirname(__FILE__) . '/../Helper/Helper.php';
-require_once dirname(__FILE__) . '/../Translation/Translator.php';
-require_once dirname(__FILE__) . '/../Base/Registry.php';
-require_once dirname(__FILE__) . '/../BasePrestashop/Base.php';
+require_once dirname(__FILE__) . '/../../fcpayone.php';
 
 use Payone\Base\Registry;
 
-$oModule = new FcPayoneBase();
+$oModule = new FcPayone();
 
-if ( \Tools::getValue('payone_secure_key') != $oModule->secure_key ) {
+if (\Tools::getValue('payone_secure_key') != $oModule->secure_key) {
     echo \Tools::jsonEncode(array('errorMessages' => array('Secure key is not valid!')));
     exit;
 }
-
 
 class ValidationAjax
 {
@@ -130,10 +124,9 @@ class ValidationAjax
         if ($aForm['bankdatatype'] == 1) {
             $this->validateIban($oValidation);
 
-            if ( \Configuration::get('FC_PAYONE_PAYMENT_SHOW_BIC_DEBIT') ) {
+            if (\Configuration::get('FC_PAYONE_PAYMENT_SHOW_BIC_DEBIT')) {
                 $this->validateBic($oValidation);
             }
-
         } else {
             $this->validateBankAccount($oValidation);
             $this->validateBankCode($oValidation);

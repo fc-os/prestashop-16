@@ -24,25 +24,25 @@
 <div class="col-xs-6">
     <form class="submitPayoneForm" name="submitPayoneCaptureForm" method="post" action="#formPayonePanel"
           data-payone-confirm="{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_CAPTURE_CONFIRM')}">
-        <h4>{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION')}</h4>
+        <h4>{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION')|escape:'html':'UTF-8'}</h4>
         <div class="row">
             <div class="col-xs-12">
-                {$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_PREAUTHORIZED_AMOUNT')}:
+                {$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_PREAUTHORIZED_AMOUNT')|escape:'html':'UTF-8'}:
                 {$aFcPayoneFirstTransactionData.data.price|escape:'html':'UTF-8'}
                 {if isset($sFcPayoneCurrencyIso)}
-                    {$sFcPayoneCurrencyIso}
+                    {$sFcPayoneCurrencyIso|escape:'html':'UTF-8'}
                 {/if}
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
-                <label for="payone_amount_capture">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_AMOUNT')}
+                <label for="payone_amount_capture">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_AMOUNT')|escape:'html':'UTF-8'}
                     {if isset($sFcPayoneCurrencyIso)}
-                        {$sFcPayoneCurrencyIso}
+                        {$sFcPayoneCurrencyIso|escape:'html':'UTF-8'}
                     {/if}
                 </label>
                 <input id="payone_amount_capture" type="text" name="payone_amount" class="form-control"
-                       value="{if isset($smarty.request.payone_amount)}{$smarty.request.payone_amount}{/if}">
+                       value="{if isset($smarty.request.payone_amount)}{$smarty.request.payone_amount|escape:'html':'UTF-8'}{/if}">
             </div>
         </div>
 
@@ -52,7 +52,7 @@
                     <label>
                         <input type="hidden" name="payone_settleaccount" value="0">
                         <input type="checkbox" name="payone_settleaccount" value="1" checked>
-                        {$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_SETTLEACCOUNT')}
+                        {$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_SETTLEACCOUNT')|escape:'html':'UTF-8'}
                     </label>
                 </div>
             </div>
@@ -60,7 +60,7 @@
 
         <div class="form-group">
             <button type="submit" name="submitPayoneCapture"
-                    class="btn btn-primary">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION_EXECUTE')}</button>
+                    class="btn btn-primary">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION_EXECUTE')|escape:'html':'UTF-8'}</button>
         </div>
     </form>
 </div>

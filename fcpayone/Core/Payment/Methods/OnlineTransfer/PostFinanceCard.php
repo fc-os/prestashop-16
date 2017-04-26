@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -29,38 +28,37 @@ class PostFinanceCard extends OnlineTransfer
 
     /**
      * ID
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $sId = 'onlinetransfer_postfinance_card';
-    
-            /**
+
+    /**
      * ID of parent payment
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $sParentId = 'onlinetransfer';
 
     /**
      * Clearing type
-     * 
+     *
      * @var string
      */
     protected $sSubClearingType = 'PFC';
 
     /**
      * Array with whitelist country iso codes
-     * 
+     *
      * @var array
      */
-    protected $aCountryWhitelist = array(
-       #  'CH',
+    protected $aCountryWhitelist = array(#  'CH',
     );
 
     /**
      * Marker for sub payments
-     * 
-     * @var boolean 
+     *
+     * @var boolean
      */
     protected $blHasSubPayments = false;
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -37,12 +36,12 @@ class CreditCard extends Base
     {
         parent::setFormData();
 
-        $oLang = Registry::getHelperPrestashop()->fcPayoneGetLanguage($this->getContext()->cart->id_lang);
+        $oLang = new \Language($this->getContext()->cart->id_lang);
         $this->getSmarty()->assign('sFcPayoneRequestLang', $oLang->iso_code);
 
         $sRequestJsData = '';
-        foreach( $this->getCreditCardRequestParams() as $sParam => $sValue ) {
-            $sRequestJsData .= '|'.$sParam.'='.$sValue;
+        foreach ($this->getCreditCardRequestParams() as $sParam => $sValue) {
+            $sRequestJsData .= '|' . $sParam . '=' . $sValue;
         }
         $this->getSmarty()->assign('sFcPayoneJsRequestData', $sRequestJsData);
         $this->setJsValidation(); //jquery included

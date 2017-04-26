@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -91,7 +90,11 @@ class Response
         $this->createUser();
         $this->createTransaction();
         $aResponse = $this->getResponse();
-        Registry::getLog()->log('redirect to payment provider',1,array(null,'Cart',\Context::getContext()->cart->id ));
+        Registry::getLog()->log(
+            'redirect to payment provider',
+            1,
+            array(null, 'Cart', \Context::getContext()->cart->id)
+        );
         \Tools::redirect($aResponse['redirecturl']);
     }
 
@@ -188,10 +191,14 @@ class Response
             $sStatus = \Tools::strtolower($aResponse['status']);
 
             if ($sStatus == 'ok') {
-                Registry::getLog()->log('start paypal express user creation',1,array(null,'Cart',\Context::getContext()->cart->id ));
+                Registry::getLog()->log(
+                    'start paypal express user creation',
+                    1,
+                    array(null, 'Cart', \Context::getContext()->cart->id)
+                );
                 return $this->handlePayPalExpressUser($aResponse);
             } elseif ($sStatus == 'redirect' && $aResponse['workorderid']) {
-                Registry::getLog()->log('redirect to paypal',1,array(null,'Cart',\Context::getContext()->cart->id ));
+                Registry::getLog()->log('redirect to paypal', 1, array(null, 'Cart', \Context::getContext()->cart->id));
                 \Context::getContext()->cookie->sFcPayoneWorkOrderId = $aResponse['workorderid'];
                 \Tools::redirect($aResponse['redirecturl']);
             }
@@ -247,11 +254,14 @@ class Response
         }
 
         //create or update paypal address
-        $oAddress = Registry::getHelperPrestashop()->fcPayoneGetAddress((isset($sAddressId) ? (int)$sAddressId : 0));;
+        $iAddressId = (isset($sAddressId) ? (int)$sAddressId : 0);
+        $oAddress = Registry::getHelperPrestashop()->fcPayoneGetAddress($iAddressId);
         $oAddress->id_customer = (int)$oCustomer->id;
         $oAddress->id_country = (int)\Country::getByIso($aResponse['add_paydata[shipping_country]']);
-        $oAddress->id_state = (int)\State::getIdByIso($aResponse['add_paydata[shipping_country]'],
-            (int)$oAddress->id_country);
+        $oAddress->id_state = (int)\State::getIdByIso(
+            $aResponse['add_paydata[shipping_country]'],
+            (int)$oAddress->id_country
+        );
         $oAddress->alias = $sAddressAlias;
         $oAddress->lastname = $oCustomer->lastname;
         $oAddress->firstname = $oCustomer->firstname;
@@ -308,7 +318,11 @@ class Response
         $oContext->cart->update();
 
         \Hook::exec('authentication');
-        Registry::getLog()->log('created paypal express user',1,array(null,'Cart',\Context::getContext()->cart->id ));
+        Registry::getLog()->log(
+            'created paypal express user',
+            1,
+            array(null, 'Cart', \Context::getContext()->cart->id)
+        );
         return true;
     }
 
@@ -317,7 +331,8 @@ class Response
      *
      * @return bool
      */
-    public function processCapture() {
+    public function processCapture()
+    {
         if (!$this->getResponse()) {
             return false;
         }
@@ -335,7 +350,8 @@ class Response
      *
      * @return bool
      */
-    public function processDebit() {
+    public function processDebit()
+    {
         if (!$this->getResponse()) {
             return false;
         }

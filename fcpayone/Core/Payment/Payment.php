@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -166,7 +165,8 @@ class Payment
 
             foreach ($aPayments as $sMainPayment => $aSubPayments) {
                 foreach ($aSubPayments as $sSubPaymentBaseName) {
-                    $aClassNames[$sMainPayment][] = 'Payone\Payment\Methods\\' . $sMainPayment . '\\' . $sSubPaymentBaseName;
+                    $aClassNames[$sMainPayment][] = 'Payone\Payment\Methods\\' .
+                                                    $sMainPayment . '\\' . $sSubPaymentBaseName;
                 }
             }
             $this->aSubPaymentMethodClasses = $aClassNames;

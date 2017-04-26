@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -44,6 +43,7 @@ class Backend extends Base
     public function getConfigurationForms()
     {
         if ($this->aFcPayoneBackendForms === null) {
+            $aForms = array();
             $aGeneralForms = $this->getGeneralForms();
             ksort($aGeneralForms);
             $aForms['settings'] = $aGeneralForms;
@@ -95,11 +95,12 @@ class Backend extends Base
      * Adds special forms to payment tab
      *
      * @param $aForms
-     * @param $sPosition pre|after
+     * @param $sPosition
      * @return mixed
      */
-    protected function addSpecialPaymentForms($aForms, $sPosition = 'after') {
-        if ( $sPosition == 'pre' ) {
+    protected function addSpecialPaymentForms($aForms, $sPosition = 'after')
+    {
+        if ($sPosition == 'pre') {
             $oCreditCardGeneralForm = new \Payone\Forms\Backend\Payment\CreditCardGeneral;
             if ($oCreditCardGeneralForm) {
                 $aForms['creditcard'][$oCreditCardGeneralForm->getTitle()] = $oCreditCardGeneralForm;

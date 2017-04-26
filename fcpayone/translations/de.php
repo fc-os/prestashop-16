@@ -128,6 +128,7 @@ $_MODULE['<{fcpayone}prestashop>translations_34bb8316b748a38b0ebd0dfad22d9bca'] 
 $_MODULE['<{fcpayone}prestashop>translations_2ea386c3f31955d924196fdbc18fed36'] = 'Wenn der Hacken gesetzt ist, wird das Prüfzifferfeld (CVC) angezeigt.';
 $_MODULE['<{fcpayone}prestashop>translations_e572141b541f2066a8585878c054e30f'] = 'E-Wallet';
 $_MODULE['<{fcpayone}prestashop>translations_0ca089cb90c83c93164af24ddb4ac617'] = 'IBAN/BIC Felder anzeigen';
+$_MODULE['<{fcpayone}prestashop>translations_72c669e14553dc4caccae068e2c19b9f'] = 'BIC Feld anzeigen';
 $_MODULE['<{fcpayone}prestashop>translations_7302fcc12d2e0bd525e7bdad64bb4d20'] = 'Forderung(Capture)';
 $_MODULE['<{fcpayone}prestashop>translations_90ad944b30c063afbebafc72329cbe2a'] = 'Rücklastschriftgebühr';
 $_MODULE['<{fcpayone}prestashop>translations_14029bf389480b2502579020292c6822'] = 'Reservierung';

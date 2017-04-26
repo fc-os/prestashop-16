@@ -22,10 +22,10 @@
 * @link      http://www.payone.de
 *}
 {if $oFcPayPalExpress}
-<div id="{$oFcPayPalExpress->getId()}">
+<div id="{$oFcPayPalExpress->getId()|escape:'html':'UTF-8'}">
     <form action="{$link->getModuleLink($sFcPayoneModuleId, $oFcPayPalExpress->getController(), ['payone_payment' => $oFcPayPalExpress->getParentId(), 'payone_payment_sub' => $oFcPayPalExpress->getId(), 'express_checkout_init' => true, 'express_checkout_type' => 'cart'], true)|escape:'htmlall':'UTF-8'}" method="POST">
         <button type="submit">
-            <img src="{$oFcPayPalExpress->getPayPalExpressImage()}" alt="{$oFcPayPalExpress->getTitle()}">
+            <img src="{$oFcPayPalExpress->getPayPalExpressImage()|escape:'html':'UTF-8'}" alt="{$oFcPayPalExpress->getTitle()|escape:'html':'UTF-8'}">
         </button>
     </form>
 </div>

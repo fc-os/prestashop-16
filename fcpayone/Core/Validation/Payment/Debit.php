@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -55,7 +54,6 @@ class Debit extends Base
             $this->validateBankAccount($aData['bankaccount']);
             $this->validateBankCode($aData['bankcode']);
         }
-
         //$this->validateBankAccountHolder($aData['bankaccountholder']);
     }
 

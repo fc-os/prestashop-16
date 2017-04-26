@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -144,5 +143,4 @@ class User
         $aData['date'] = date('Y-m-d H:i:s');
         return (bool)\Db::getInstance()->insert(self::getTable(), $aData);
     }
-
 }

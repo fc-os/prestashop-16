@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -111,9 +110,12 @@ class FcPayonePaymentDebitModuleFrontController extends FcPayonePaymentModuleFro
             $oRequest = new Request();
             $blProcessed = $oRequest->processMandateManage($this->context, $oSelectedPayment, $aFormData);
             if (!$blProcessed) {
-                Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_MANDATE_REQUEST_FAILED',
-                    true);
-                Registry::getLog()->log('mandate request failed',3,array(null,'Cart',$this->context->cart->id ));
+                Registry::getErrorHandler()->setError(
+                    'order',
+                    'FC_PAYONE_ERROR_MANDATE_REQUEST_FAILED',
+                    true
+                );
+                Registry::getLog()->log('mandate request failed', 3, array(null, 'Cart', $this->context->cart->id));
                 return false;
             }
             $oResponse = new Response();
@@ -121,17 +123,19 @@ class FcPayonePaymentDebitModuleFrontController extends FcPayonePaymentModuleFro
             $oResponse->processMandateManage();
             return false;
         } elseif ($aFormData && (!isset($aFormData['mandate_accepted']) || $aFormData['mandate_accepted'] == '')) {
-            Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_MANDATE_NOT_ACCEPTED',
-                true);
+            Registry::getErrorHandler()->setError(
+                'order',
+                'FC_PAYONE_ERROR_MANDATE_NOT_ACCEPTED',
+                true
+            );
             return false;
         } elseif ($aFormData && isset($aFormData['mandate_accepted']) && $aFormData['mandate_accepted'] != '') {
             return true;
         } else {
             Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_MANDATE_FAILED', true);
-            Registry::getLog()->log('mandate failed',3,array(null,'Cart',$this->context->cart->id ));
+            Registry::getLog()->log('mandate failed', 3, array(null, 'Cart', $this->context->cart->id));
             $this->fcPayoneDeleteMandateCookie();
             return false;
         }
     }
-
 }

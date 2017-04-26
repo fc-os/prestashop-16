@@ -23,7 +23,6 @@
 
 namespace Payone\Request\Builder\Order;
 
-
 class Debit extends Base
 {
     /**
@@ -38,7 +37,8 @@ class Debit extends Base
      *
      * @param $aData
      */
-    public function setBankData($aData) {
+    public function setBankData($aData)
+    {
         $this->aBankData = $aData;
     }
 
@@ -47,7 +47,8 @@ class Debit extends Base
      *
      * @return array
      */
-    protected function getBankData() {
+    protected function getBankData()
+    {
         return $this->aBankData;
     }
 
@@ -68,8 +69,9 @@ class Debit extends Base
     protected function setBankDataToRequest()
     {
         $aBankData = $this->getBankData();
-        if ($aBankData && count($aBankData) > 0 && isset($aBankData['bankaccount']) && isset($aBankData['bankcountry'])) {
-            foreach( $aBankData as $sParam => $sValue ) {
+        if ($aBankData && count($aBankData) > 0 &&
+            isset($aBankData['bankaccount']) && isset($aBankData['bankcountry'])) {
+            foreach ($aBankData as $sParam => $sValue) {
                 $this->setParam($sParam, $sValue);
             }
         }

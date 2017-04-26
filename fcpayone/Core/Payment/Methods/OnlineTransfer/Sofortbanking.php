@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -81,8 +80,7 @@ class Sofortbanking extends OnlineTransfer
      */
     public function hasIbanBic()
     {
-        $this->blHasIbanBic = \Configuration::get('FC_PAYONE_PAYMENT_SHOW_IBANBIC_'.$this->getId(true));
+        $this->blHasIbanBic = \Configuration::get('FC_PAYONE_PAYMENT_SHOW_IBANBIC_' . $this->getId(true));
         return $this->blHasIbanBic;
     }
-
 }

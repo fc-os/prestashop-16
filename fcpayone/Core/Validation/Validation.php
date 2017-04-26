@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -282,8 +281,8 @@ class Validation
     public function isValidPayoneIp($sCheckIp)
     {
         $aWhiteList = $this->aWhiteListIps;
-        if ($sCheckIp && array_search($sCheckIp, $aWhiteList) === false && $this->searchIPInList($sCheckIp,
-                $aWhiteList) === true
+        if ($sCheckIp && array_search($sCheckIp, $aWhiteList) === false &&
+            $this->searchIPInList($sCheckIp, $aWhiteList) === true
         ) {
             return true;
         }

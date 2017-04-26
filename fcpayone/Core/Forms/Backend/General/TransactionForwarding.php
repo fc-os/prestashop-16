@@ -74,5 +74,4 @@ class TransactionForwarding extends \Payone\Forms\Backend\Base
         }
         return $aForm;
     }
-
 }

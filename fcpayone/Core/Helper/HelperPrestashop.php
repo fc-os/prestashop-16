@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,7 +23,7 @@
 
 namespace Payone\Helper;
 
-class HelperPrestashop extends \FcPayoneBase
+class HelperPrestashop
 {
 
     /**
@@ -136,15 +135,4 @@ class HelperPrestashop extends \FcPayoneBase
         }
         return null;
     }
-
-    /**
-     * Returns state object
-     *
-     * @return string
-     */
-    public function fcPayoneGetModuleVersion()
-    {
-        return $this->version;
-    }
-
 }

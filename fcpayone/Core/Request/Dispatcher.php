@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -30,7 +29,7 @@ class Dispatcher
 {
     /**
      * URL of PAYONE Server API
-     * 
+     *
      * @var string
      */
 
@@ -38,7 +37,7 @@ class Dispatcher
 
     /**
      * URL of PAYONE Server API
-     * 
+     *
      * @var string
      */
     protected $sFrontendApiUrl = 'https://secure.pay1.de/frontend/';
@@ -62,7 +61,8 @@ class Dispatcher
      *
      * @return bool
      */
-    protected function useCertification() {
+    protected function useCertification()
+    {
         return $this->blUsePayoneCertification;
     }
 
@@ -71,7 +71,8 @@ class Dispatcher
      *
      * @param $blUseCert
      */
-    public function setCertificationUsage($blUseCert) {
+    public function setCertificationUsage($blUseCert)
+    {
         $this->blUsePayoneCertification = $blUseCert;
     }
 
@@ -79,7 +80,8 @@ class Dispatcher
      * Check for certification and sets usage to false
      * if not found
      */
-    protected function checkCertification() {
+    protected function checkCertification()
+    {
         $sCertificateFilePath = $this->getCertificationFile();
         if (file_exists($sCertificateFilePath) === false) {
             $this->setCertificationUsage(false);
@@ -91,8 +93,9 @@ class Dispatcher
      *
      * @return string
      */
-    protected function getCertificationFile() {
-        return  Registry::getHelper()->getModulePath() . 'cert/cacert.pem';
+    protected function getCertificationFile()
+    {
+        return Registry::getHelper()->getModulePath() . 'cert/cacert.pem';
     }
 
     /**
@@ -100,7 +103,8 @@ class Dispatcher
      *
      * @return int
      */
-    protected function getTimeout() {
+    protected function getTimeout()
+    {
         return $this->iTimeout;
     }
 
@@ -109,8 +113,9 @@ class Dispatcher
      *
      * @param $iTimeout
      */
-    public function setTimeout($iTimeout) {
-        $this->iTimeout = (int) $iTimeout;
+    public function setTimeout($iTimeout)
+    {
+        $this->iTimeout = (int)$iTimeout;
     }
 
     /**
@@ -143,8 +148,12 @@ class Dispatcher
      *
      * @return string|array
      */
-    public function dispatchRequest($aRequest, $blOnlyUrl = false, $blUseFileGetContents = false, $sRequestBaseUrl = null)
-    {
+    public function dispatchRequest(
+        $aRequest,
+        $blOnlyUrl = false,
+        $blUseFileGetContents = false,
+        $sRequestBaseUrl = null
+    ) {
         $sRequestUrl = $this->getRequestUrl($aRequest, $sRequestBaseUrl);
         if ($blOnlyUrl) {
             return $sRequestUrl;
@@ -203,8 +212,8 @@ class Dispatcher
      */
     protected function getRequestUrl($aRequest, $sRequestBaseUrl = null)
     {
-        if ( $sRequestBaseUrl !== null ) {
-            $sUrl = rtrim($sRequestBaseUrl,'?'). '?' . $this->getRequestUri($aRequest);
+        if ($sRequestBaseUrl !== null) {
+            $sUrl = rtrim($sRequestBaseUrl, '?') . '?' . $this->getRequestUri($aRequest);
         } else {
             $sUrl = $this->getApiUrl() . '?' . $this->getRequestUri($aRequest);
         }
@@ -301,9 +310,16 @@ class Dispatcher
                 $iPort = 80;
         }
 
-        $oFsockOpen = fsockopen($sScheme . $aRequestUrl['host'], $iPort, $iErrorNumber, $sErrorString, $this->getTimeout());
+        $oFsockOpen = fsockopen(
+            $sScheme . $aRequestUrl['host'],
+            $iPort,
+            $iErrorNumber,
+            $sErrorString,
+            $this->getTimeout()
+        );
         if (!$oFsockOpen) {
-            $aResponse[] = "errormessage=fsockopen:Failed opening http socket connection: " . $sErrorString . " (" . $iErrorNumber . ")";
+            $aResponse[] = "errormessage=fsockopen:Failed opening http socket connection: " .
+                $sErrorString . " (" . $iErrorNumber . ")";
         } else {
             $sRequestHeader = "POST " . $aRequestUrl['path'] . " HTTP/1.1\r\n";
             $sRequestHeader .= "Host: " . $aRequestUrl['host'] . "\r\n";
@@ -345,7 +361,7 @@ class Dispatcher
             ),
         );
         $oContext = stream_context_create($aOptions);
-        $mContent = file_get_contents($this->getApiUrl(), false, $oContext);
+        $mContent = \Tools::file_get_contents($this->getApiUrl(), false, $oContext);
         $aResponse = null;
         if ($mContent) {
             if (strpos($mContent, 'status') !== false) {

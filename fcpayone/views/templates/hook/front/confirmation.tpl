@@ -24,20 +24,20 @@
 
 {if isset($blFcPayoneError) && $blFcPayoneError}
     <div class="alert alert-danger">
-        <p>{$oFcPayoneTranslator->translate('FC_PAYONE_ERROR_ORDER_CONFIRM')}</p>
+        <p>{$oFcPayoneTranslator->translate('FC_PAYONE_ERROR_ORDER_CONFIRM')|escape:'html':'UTF-8'}</p>
     </div>
 {/if}
 <p>
-    {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_ORDER_CONFIRM')}<br/><br/>
-    {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_ORDER_CONFIRM_REFERENCE')} {$sFcPayoneOrderReference}
+    {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_ORDER_CONFIRM')|escape:'html':'UTF-8'}<br/><br/>
+    {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_ORDER_CONFIRM_REFERENCE')|escape:'html':'UTF-8'} {$sFcPayoneOrderReference}
     <br/><br/>
-    {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_ORDER_CONFIRM_CONTACT')}
-    <a href="{$link->getPageLink('contact-form', true)|escape:'html'}">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_ORDER_CONFIRM_CONTACT_LINK')}</a>
+    {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_ORDER_CONFIRM_CONTACT')|escape:'html':'UTF-8'}
+    <a href="{$link->getPageLink('contact-form', true)|escape:'html':'UTF-8'}">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_ORDER_CONFIRM_CONTACT_LINK')|escape:'html':'UTF-8'}</a>
 </p>
 {if isset($sFcPayoneDownloadLink)}
     <p>
-        <a href="{$sFcPayoneDownloadLink|escape:'htmlall':'UTF-8'}" target="_blank">
-            {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_ORDER_CONFIRM_DOWNLOAD_PDF')}<br/><br/>
+        <a href="{$sFcPayoneDownloadLink|escape:'html':'UTF-8'}" target="_blank">
+            {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_ORDER_CONFIRM_DOWNLOAD_PDF')|escape:'html':'UTF-8'}<br/><br/>
         </a>
     </p>
 {/if}

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -127,7 +126,6 @@ class Mandate extends Base
     public function setMode($sMode)
     {
         $this->sMode = $sMode;
-
     }
 
     /**
@@ -138,7 +136,6 @@ class Mandate extends Base
     protected function getMode()
     {
         return $this->sMode;
-
     }
 
     /**

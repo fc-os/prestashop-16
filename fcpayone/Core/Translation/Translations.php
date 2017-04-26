@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -162,6 +161,7 @@ $aLang = array(
     "->l('FC_PAYONE_BACKEND_CREDITCARD_GENERAL_SHOW_CVC_DESC')",
     "->l('FC_PAYONE_BACKEND_CONFIGURATION_TITLE_WALLET')",
     "->l('FC_PAYONE_BACKEND_PAYMENT_SHOW_IBANBIC')",
+    "->l('FC_PAYONE_BACKEND_PAYMENT_SHOW_BIC')",
 
     #rec
     "->l('FC_PAYONE_BACKEND_ORDER_TRANSACTION_ACTION_REC_CAPTURE')", #Forderung(Capture)

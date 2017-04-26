@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,6 +20,7 @@
  * @license   <http://www.gnu.org/licenses/> GNU Lesser General Public License
  * @link      http://www.payone.de
  */
+
 /**
  * Its possible to create validaiton, request and form classes for specific substyps
  * like visa...
@@ -64,9 +64,6 @@ if (count($aFcPayonePayments) > 0) {
     $aFcPayoneAutoloadCoreClasses[] = 'Base/Log.php';
     $aFcPayoneAutoloadCoreClasses[] = 'Helper/Helper.php';
     $aFcPayoneAutoloadCoreClasses[] = 'Base/Reference.php';
-    $aFcPayoneAutoloadCoreClasses[] = 'BasePrestashop/Base.php';
-    $aFcPayoneAutoloadCoreClasses[] = 'BasePrestashop/Setup.php';
-    $aFcPayoneAutoloadCoreClasses[] = 'BasePrestashop/Hooks.php';
     $aFcPayoneAutoloadCoreClasses[] = 'Helper/HelperPrestashop.php';
     $aFcPayoneAutoloadCoreClasses[] = 'Base/Transaction.php';
     $aFcPayoneAutoloadCoreClasses[] = 'Base/User.php';
@@ -106,16 +103,16 @@ if (count($aFcPayonePayments) > 0) {
      */
     $aFcPayoneAutoloadCoreClasses[] = 'Payment/Methods/Base.php';
     foreach ($aFcPayonePayments as $sPaymentMethod) {
-        if (in_array($sPaymentMethod,
-                $aFcPayoneSubPaymentBaseNames['OnlineTransfer']) || $sPaymentMethod == 'OnlineTransfer'
+        if (in_array($sPaymentMethod, $aFcPayoneSubPaymentBaseNames['OnlineTransfer']) ||
+            $sPaymentMethod == 'OnlineTransfer'
         ) {
             $aFcPayoneAutoloadCoreClasses[] = 'Payment/Methods/OnlineTransfer/' . $sPaymentMethod . '.php';
-        } elseif (in_array($sPaymentMethod,
-                $aFcPayoneSubPaymentBaseNames['CreditCard']) || $sPaymentMethod == 'CreditCard'
+        } elseif (in_array($sPaymentMethod, $aFcPayoneSubPaymentBaseNames['CreditCard']) ||
+            $sPaymentMethod == 'CreditCard'
         ) {
             $aFcPayoneAutoloadCoreClasses[] = 'Payment/Methods/CreditCard/' . $sPaymentMethod . '.php';
-        } elseif (in_array($sPaymentMethod,
-                $aFcPayoneSubPaymentBaseNames['Wallet']) || $sPaymentMethod == 'Wallet'
+        } elseif (in_array($sPaymentMethod, $aFcPayoneSubPaymentBaseNames['Wallet']) ||
+            $sPaymentMethod == 'Wallet'
         ) {
             $aFcPayoneAutoloadCoreClasses[] = 'Payment/Methods/Wallet/' . $sPaymentMethod . '.php';
         } else {

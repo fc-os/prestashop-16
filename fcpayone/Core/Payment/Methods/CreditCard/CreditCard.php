@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -60,7 +59,10 @@ class CreditCard extends \Payone\Payment\Methods\Base
      *
      * @var array
      */
-    protected $aRequestTypes = array(\Payone\Payment\Methods\Base::REQUEST_PREAUTH, \Payone\Payment\Methods\Base::REQUEST_AUTH);
+    protected $aRequestTypes = array(
+        \Payone\Payment\Methods\Base::REQUEST_PREAUTH,
+        \Payone\Payment\Methods\Base::REQUEST_AUTH
+    );
 
     /**
      * Marker for sub payments
@@ -68,5 +70,4 @@ class CreditCard extends \Payone\Payment\Methods\Base
      * @var boolean
      */
     protected $blHasSubPayments = true;
-
 }

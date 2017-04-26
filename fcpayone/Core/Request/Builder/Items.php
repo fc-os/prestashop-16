@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -110,7 +109,9 @@ class Items extends Base
             $aOrderItems['pr[' . $iItemIndex . ']'] = $this->getConvertedAmount($aSummary['total_shipping']);
             $aOrderItems['no[' . $iItemIndex . ']'] = 1;
             $aOrderItems['de[' . $iItemIndex . ']'] = $aSummary['carrier']->name;
-            $dTax = ($aSummary['total_shipping'] - $aSummary['total_shipping_tax_exc']) * 100 / $aSummary['total_shipping_tax_exc'];
+            $dTax = (
+                $aSummary['total_shipping'] - $aSummary['total_shipping_tax_exc']
+                ) * 100 / $aSummary['total_shipping_tax_exc'];
             $aOrderItems['va[' . $iItemIndex . ']'] = $this->getConvertedAmount($dTax);
             $iItemIndex++;
             $this->addItemsToParams($aOrderItems);

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PAYONE Prestashop Connector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -74,11 +73,13 @@ class PayPalExpress extends PayPal
     public function getPayPalExpressImage()
     {
         $iActLang = (int)\Context::getContext()->cart->id_lang;
-        $sImage =  \Configuration::get('FC_PAYONE_PAYPAL_EXPRESS_IMG_'.$iActLang);
-        if ( !$sImage ) {
-            $sImage =  \Configuration::get('FC_PAYONE_PAYPAL_EXPRESS_IMG_'.(int)Configuration::get('PS_LANG_DEFAULT'));
+        $sImage = \Configuration::get('FC_PAYONE_PAYPAL_EXPRESS_IMG_' . $iActLang);
+        if (!$sImage) {
+            $sImage = \Configuration::get(
+                'FC_PAYONE_PAYPAL_EXPRESS_IMG_' . (int)\Configuration::get('PS_LANG_DEFAULT')
+            );
         }
-        return Registry::getHelper()->getModuleUrl().'views/img/Payment/Methods/'.$sImage;
+        return Registry::getHelper()->getModuleUrl() . 'views/img/Payment/Methods/' . $sImage;
     }
 
     /**
@@ -94,5 +95,4 @@ class PayPalExpress extends PayPal
         }
         return false;
     }
-
 }
