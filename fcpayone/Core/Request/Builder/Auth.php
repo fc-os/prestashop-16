@@ -40,7 +40,7 @@ class Auth extends Base
         $this->setParam('integrator_name', 'prestashop');
         $this->setParam('integrator_version', _PS_VERSION_);
         $this->setParam('solution_name', 'fatchip');
-        $this->setParam('solution_version', $this->getHelper()->fcPayoneGetModuleVersion());
+        $this->setParam('solution_version', _FCPAYONE_VERSION_);
         $this->setParam('api_version', '3.10');
     }
 }

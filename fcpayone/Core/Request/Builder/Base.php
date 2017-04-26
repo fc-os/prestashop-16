@@ -83,7 +83,6 @@ class Base
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -91,7 +90,6 @@ class Base
      */
     public function build()
     {
-
     }
 
     /**

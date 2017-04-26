@@ -37,6 +37,9 @@ class FcPayone extends \PaymentModule
         $this->name = 'fcpayone';
         $this->tab = 'payments_gateways';
         $this->version = '1.0.0';
+        if (!defined('_FCPAYONE_VERSION_')) {
+            define('_FCPAYONE_VERSION_', $this->version);
+        }
         $this->author = 'FATCHIP GmbH';
         $this->need_instance = 0;
         #$this->module_key = 'd8c52a8f94d05bebfbd5848a138a33b7';
@@ -45,8 +48,8 @@ class FcPayone extends \PaymentModule
         $this->currencies = true;
         $this->currencies_mode = 'checkbox';
         parent::__construct();
-        $this->secure_key = Tools::encrypt($this->name);
-        $oTranslator = Registry::getTranslator();
+        $this->secure_key = \Tools::encrypt($this->name);
+        $oTranslator = \Payone\Base\Registry::getTranslator();
         $this->displayName = 'PAYONE GmbH Connector';
         $this->description = 'PAYONE GmbH Connector for Prestashop';
         $this->confirmUninstall = $oTranslator->translate('FC_PAYONE_BACKEND_CONFIRM_UNINSTALL');
@@ -60,7 +63,7 @@ class FcPayone extends \PaymentModule
      */
     protected function fcGetPayoneHelper()
     {
-        return Registry::getHelper();
+        return \Payone\Base\Registry::getHelper();
     }
 
     /**
@@ -77,7 +80,7 @@ class FcPayone extends \PaymentModule
     public function install()
     {
         if (extension_loaded('curl') == false) {
-            $this->_errors[] = Registry::getTranslator()->translate('FC_PAYONE_ERROR_CURL_NEEDED');
+            $this->_errors[] = \Payone\Base\Registry::getTranslator()->translate('FC_PAYONE_ERROR_CURL_NEEDED');
             return false;
         }
 
@@ -149,7 +152,7 @@ class FcPayone extends \PaymentModule
      */
     protected function fcPayoneCreateTables()
     {
-        $sRawQ = \Tools::file_get_contents(Registry::getHelper()->getModulePath() . '/sql/install.sql');
+        $sRawQ = \Tools::file_get_contents(\Payone\Base\Registry::getHelper()->getModulePath() . '/sql/install.sql');
         $aTables = $this->fcPayoneGetTables();
         $aPattern = array_keys($aTables);
         $aPattern[] = '###TABLE_ENGINE###';
@@ -347,7 +350,7 @@ class FcPayone extends \PaymentModule
     {
         $oOrder = new Order($params['id_order']);
         if ($oOrder->module !== $this->name) {
-            Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_ORDER_FAIL');
+            \Payone\Base\Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_ORDER_FAIL');
             return;
         }
         $oOrderForm = new \Payone\Forms\Backend\Order;
@@ -397,7 +400,7 @@ class FcPayone extends \PaymentModule
 
         $aNotVisibleInList = array('wallet_paypal_express');
         $aValidPaymentMethods = array();
-        $aPaymentMethods = Registry::getPayment()->getPaymentMethods();
+        $aPaymentMethods = \Payone\Base\Registry::getPayment()->getPaymentMethods();
         foreach ($aPaymentMethods as $sKey => $oPayment) {
             if (!$oPayment->isGroupedPayment() && !in_array($oPayment->getId(), $aNotVisibleInList) &&
                 (($oPayment->hasSubPayments() && count($oPayment->getValidSubPayments()) > 0) ||
@@ -433,7 +436,7 @@ class FcPayone extends \PaymentModule
         if (!$this->fcPayoneCanHookPayment($params)) {
             return false;
         }
-        Registry::getLog()->log('hook payment', 1, array(null, 'Payment', $params['cart']->id));
+        \Payone\Base\Registry::getLog()->log('hook payment', 1, array(null, 'Payment', $params['cart']->id));
         $this->fcPayoneAddDefaultTemplateVars();
         $aPaymentMethods = $this->fcPayoneGetValidUserPaymentMethods();
         if (is_array($aPaymentMethods) && count($aPaymentMethods) > 0) {
@@ -461,7 +464,7 @@ class FcPayone extends \PaymentModule
         if (!$this->fcPayoneCanHookPayment($params)) {
             return;
         }
-        Registry::getLog()->log('hook payment', 1, array(null, 'Payment', $params['cart']->id));
+        \Payone\Base\Registry::getLog()->log('hook payment', 1, array(null, 'Payment', $params['cart']->id));
         $this->fcPayoneAddDefaultTemplateVars();
 
         return $this->fcPayoneGetPaymentsForTemplate();
@@ -548,7 +551,7 @@ class FcPayone extends \PaymentModule
             return;
         }
         $oOrder = $params['objOrder'];
-        Registry::getLog()->log('hook payment return', 1, array(null, 'Order', $oOrder->id));
+        \Payone\Base\Registry::getLog()->log('hook payment return', 1, array(null, 'Order', $oOrder->id));
 
         $this->fcPayoneCleanup();
         if (\Tools::getValue('payone_payment') == 'debit') {
@@ -581,7 +584,7 @@ class FcPayone extends \PaymentModule
         if (isset(\Context::getContext()->cookie->sFcPayoneMandate)) {
             unset(\Context::getContext()->cookie->sFcPayoneMandate);
         }
-        Registry::getErrorHandler()->deleteErrors();
+        \Payone\Base\Registry::getErrorHandler()->deleteErrors();
     }
 
     /**
@@ -598,8 +601,8 @@ class FcPayone extends \PaymentModule
             $sCartId = $params['cart']->id;
         }
 
-        Registry::getLog()->log('hook display shoppingcart', 1, array(null, 'Cart', $sCartId));
-        $aPaymentMethods = Registry::getPayment()->getPaymentMethods();
+        \Payone\Base\Registry::getLog()->log('hook display shoppingcart', 1, array(null, 'Cart', $sCartId));
+        $aPaymentMethods = \Payone\Base\Registry::getPayment()->getPaymentMethods();
         $oPayPalExpress = null;
         if (is_array($aPaymentMethods) && count($aPaymentMethods) > 0) {
             foreach ($aPaymentMethods as $oPayment) {
@@ -651,7 +654,7 @@ class FcPayone extends \PaymentModule
             'sFcPayoneModulePath' => $this->fcGetPayoneHelper()->getModulePath(),
             'sFcPayoneModuleUrl' => $this->fcGetPayoneHelper()->getModuleUrl(),
             'sFcPayoneModuleId' => $this->name,
-            'oFcPayoneTranslator' => Registry::getTranslator(),
+            'oFcPayoneTranslator' => \Payone\Base\Registry::getTranslator(),
         ));
     }
 }

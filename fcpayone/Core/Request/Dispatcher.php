@@ -310,10 +310,16 @@ class Dispatcher
                 $iPort = 80;
         }
 
-        $oFsockOpen = fsockopen($sScheme . $aRequestUrl['host'], $iPort, $iErrorNumber, $sErrorString,
-            $this->getTimeout());
+        $oFsockOpen = fsockopen(
+            $sScheme . $aRequestUrl['host'],
+            $iPort,
+            $iErrorNumber,
+            $sErrorString,
+            $this->getTimeout()
+        );
         if (!$oFsockOpen) {
-            $aResponse[] = "errormessage=fsockopen:Failed opening http socket connection: " . $sErrorString . " (" . $iErrorNumber . ")";
+            $aResponse[] = "errormessage=fsockopen:Failed opening http socket connection: " .
+                $sErrorString . " (" . $iErrorNumber . ")";
         } else {
             $sRequestHeader = "POST " . $aRequestUrl['path'] . " HTTP/1.1\r\n";
             $sRequestHeader .= "Host: " . $aRequestUrl['host'] . "\r\n";
@@ -355,7 +361,7 @@ class Dispatcher
             ),
         );
         $oContext = stream_context_create($aOptions);
-        $mContent = file_get_contents($this->getApiUrl(), false, $oContext);
+        $mContent = \Tools::file_get_contents($this->getApiUrl(), false, $oContext);
         $aResponse = null;
         if ($mContent) {
             if (strpos($mContent, 'status') !== false) {

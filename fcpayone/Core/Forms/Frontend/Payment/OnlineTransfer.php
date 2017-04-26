@@ -51,7 +51,9 @@ class OnlineTransfer extends Base
     {
         parent::setFormData();
         $this->setJsValidation(); //jquery included
-        $this->getController()->addJS($this->getHelper()->getModulePath() . 'views/js/frontend/fcpayoneonlinetransfer.js');
+        $this->getController()->addJS(
+            $this->getHelper()->getModulePath() . 'views/js/frontend/fcpayoneonlinetransfer.js'
+        );
         $this->setAjaxValidationUrl();
 
         $aValidSubPayments = $this->getFormPayment()->getValidSubPayments();

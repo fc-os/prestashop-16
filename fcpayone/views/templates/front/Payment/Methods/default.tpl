@@ -25,19 +25,19 @@
     <fieldset>
         {if $oFcPayonePayment->getImage()}
             <div class="col-lg-12">
-                <img src="{$oFcPayonePayment->getImage()}" alt="{$oFcPayonePayment->getTitle()}" />
+                <img src="{$oFcPayonePayment->getImage()|escape:'html':'UTF-8'}" alt="{$oFcPayonePayment->getTitle()|escape:'html':'UTF-8'}" />
             </div>
         {/if}
-        <h3 class="page-subheading">{$oFcPayonePayment->getTitle()}</h3>
+        <h3 class="page-subheading">{$oFcPayonePayment->getTitle()|escape:'html':'UTF-8'}</h3>
         {if $oFcPayonePayment->getDescription()}
-            <p><strong class="dark">{$oFcPayonePayment->getDescription()}</strong></p>
+            <p><strong class="dark">{$oFcPayonePayment->getDescription()|escape:'html':'UTF-8'}</strong></p>
             <br/>
         {/if}
         <p>
-            {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_PAYMENT_ORDER_AMOUNT')}
+            {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_PAYMENT_ORDER_AMOUNT')|escape:'html':'UTF-8'}
             <span class="price">{convertPrice price=$total}</span>
             {if $use_taxes == 1}
-                {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_PAYMENT_ORDER_AMOUNT_TAX')}
+                {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_PAYMENT_ORDER_AMOUNT_TAX')|escape:'html':'UTF-8'}
             {/if}
         </p>
     </fieldset>

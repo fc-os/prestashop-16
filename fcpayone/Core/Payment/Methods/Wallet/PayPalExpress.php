@@ -75,7 +75,9 @@ class PayPalExpress extends PayPal
         $iActLang = (int)\Context::getContext()->cart->id_lang;
         $sImage = \Configuration::get('FC_PAYONE_PAYPAL_EXPRESS_IMG_' . $iActLang);
         if (!$sImage) {
-            $sImage = \Configuration::get('FC_PAYONE_PAYPAL_EXPRESS_IMG_' . (int)Configuration::get('PS_LANG_DEFAULT'));
+            $sImage = \Configuration::get(
+                'FC_PAYONE_PAYPAL_EXPRESS_IMG_' . (int)\Configuration::get('PS_LANG_DEFAULT')
+            );
         }
         return Registry::getHelper()->getModuleUrl() . 'views/img/Payment/Methods/' . $sImage;
     }

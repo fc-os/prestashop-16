@@ -23,9 +23,9 @@
 *}
 {capture name=path}
 <a href="{$link->getPageLink('order', true, NULL, "step=3")|escape:'html':'UTF-8'}">
-{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_BREADCRUMB_CHECKOUT')}</a>
-<span class="navigation-pipe">{$navigationPipe}</span>
-{$oFcPayonePayment->getTitle()}
+{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_BREADCRUMB_CHECKOUT')|escape:'html':'UTF-8'}</a>
+<span class="navigation-pipe">{$navigationPipe|escape:'html':'UTF-8'}</span>
+{$oFcPayonePayment->getTitle()|escape:'html':'UTF-8'}
 {/capture}
 
 {assign var='current_step' value='payment'}
@@ -33,12 +33,12 @@
 {include file="$tpl_dir./errors.tpl"}
 
 {if $nbProducts <= 0}
-<p class="warning">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_CART_EMPTY')}</p>
+<p class="warning">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_CART_EMPTY')|escape:'html':'UTF-8'}</p>
 {else}
 
 {if isset($blFcPayoneError) && $blFcPayoneError}
 <div class="alert alert-danger">
-    <p>{$oFcPayoneTranslator->translate('FC_PAYONE_ERROR_FILL_FIELDS')}</p>
+    <p>{$oFcPayoneTranslator->translate('FC_PAYONE_ERROR_FILL_FIELDS')|escape:'html':'UTF-8'}</p>
     <ol>
         {foreach item=error from=$aFcPayoneErrorMessages}
         <li class="error">{$error|escape:'html':'UTF-8'}</li>
@@ -57,19 +57,19 @@
             {assign var=sFcPayoneSubPaymentId value=false}
         {/if}
         <form action="{$link->getModuleLink($sFcPayoneModuleId, $oFcPayonePayment->getController(), ['payone_payment' => $sFcPayonePaymentId, 'payone_payment_sub' => $sFcPayoneSubPaymentId, 'payone_validate' => true], true)|escape:'htmlall':'UTF-8'}" method="post" class="std form-horizontal" id="mainPaymentForm">
-            <input type="hidden" name="payone_secure_key" value="{$sPayoneSecureKey|escape}">
+            <input type="hidden" name="payone_secure_key" value="{$sPayoneSecureKey|escape:'html':'UTF-8'}">
             {$sFcPayonePaymentForm}
             {if isset($iFcPayoneConditions) AND isset($iFcPayoneConditionCmsId)}
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
-                        <h2>{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_TERMS_TITLE')}</h2>
+                        <h2>{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_TERMS_TITLE')|escape:'html':'UTF-8'}</h2>
                         <div class="box">
                             <p class="checkbox">
                                 <input type="checkbox" name="cgv" id="cgv" value="1"  />
                                 <label for="cgv">
-                                    {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_TERMS_I_AGREE')}
+                                    {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_TERMS_I_AGREE')|escape:'html':'UTF-8'}
                                 </label>
-                                <a href="{$sFcPayoneConditionLink|escape:'html':'UTF-8'}" class="iframe" rel="nofollow">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_TERMS_READ')}</a>
+                                <a href="{$sFcPayoneConditionLink|escape:'html':'UTF-8'}" class="iframe" rel="nofollow">{$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_TERMS_READ')|escape:'html':'UTF-8'}</a>
                             </p>
                         </div>
                     </div>
@@ -78,15 +78,15 @@
             <p id="cart_navigation" class="cart_navigation clearfix submit">
                 <a class="button-exclusive btn btn-default" href="{$link->getPageLink('order', true, NULL, "step=3")|escape:'html':'UTF-8'}">
                     <i class="icon-chevron-left"></i>
-                    {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_CHOOSE_OTHER_PAYMENT')}
+                    {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_CHOOSE_OTHER_PAYMENT')|escape:'html':'UTF-8'}
                 </a>
 
                 <button id="submitOrder" class="button btn btn-default standard-checkout button-medium js-payone-payment-submit"  type="submit">
                     <span>
                         {if isset($blFcPayoneShowContinueButton) && $blFcPayoneShowContinueButton}
-                            {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_CONTINUE')}
+                            {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_CONTINUE')|escape:'html':'UTF-8'}
                         {else}
-                            {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_COMPLETE_ORDER')}
+                            {$oFcPayoneTranslator->translate('FC_PAYONE_FRONTEND_COMPLETE_ORDER')|escape:'html':'UTF-8'}
                         {/if}
                         <i class="icon-chevron-right right"></i>
                     </span>

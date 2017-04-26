@@ -23,15 +23,11 @@
 
 include_once(dirname(__FILE__) . '/../../../../config/config.inc.php');
 include_once(dirname(__FILE__) . '/../../../../init.php');
-require_once dirname(__FILE__) . '/../Validation/Base.php';
-require_once dirname(__FILE__) . '/../Helper/Helper.php';
-require_once dirname(__FILE__) . '/../Translation/Translator.php';
-require_once dirname(__FILE__) . '/../Base/Registry.php';
-require_once dirname(__FILE__) . '/../BasePrestashop/Base.php';
+require_once dirname(__FILE__) . '/../../fcpayone.php';
 
 use Payone\Base\Registry;
 
-$oModule = new FcPayoneBase();
+$oModule = new FcPayone();
 
 if (\Tools::getValue('payone_secure_key') != $oModule->secure_key) {
     echo \Tools::jsonEncode(array('errorMessages' => array('Secure key is not valid!')));

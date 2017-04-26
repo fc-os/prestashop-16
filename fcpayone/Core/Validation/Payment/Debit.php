@@ -54,7 +54,6 @@ class Debit extends Base
             $this->validateBankAccount($aData['bankaccount']);
             $this->validateBankCode($aData['bankcode']);
         }
-
         //$this->validateBankAccountHolder($aData['bankaccountholder']);
     }
 

@@ -64,9 +64,6 @@ if (count($aFcPayonePayments) > 0) {
     $aFcPayoneAutoloadCoreClasses[] = 'Base/Log.php';
     $aFcPayoneAutoloadCoreClasses[] = 'Helper/Helper.php';
     $aFcPayoneAutoloadCoreClasses[] = 'Base/Reference.php';
-    $aFcPayoneAutoloadCoreClasses[] = 'BasePrestashop/Base.php';
-    $aFcPayoneAutoloadCoreClasses[] = 'BasePrestashop/Setup.php';
-    $aFcPayoneAutoloadCoreClasses[] = 'BasePrestashop/Hooks.php';
     $aFcPayoneAutoloadCoreClasses[] = 'Helper/HelperPrestashop.php';
     $aFcPayoneAutoloadCoreClasses[] = 'Base/Transaction.php';
     $aFcPayoneAutoloadCoreClasses[] = 'Base/User.php';

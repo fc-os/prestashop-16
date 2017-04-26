@@ -281,8 +281,8 @@ class Validation
     public function isValidPayoneIp($sCheckIp)
     {
         $aWhiteList = $this->aWhiteListIps;
-        if ($sCheckIp && array_search($sCheckIp, $aWhiteList) === false && $this->searchIPInList($sCheckIp,
-                $aWhiteList) === true
+        if ($sCheckIp && array_search($sCheckIp, $aWhiteList) === false &&
+            $this->searchIPInList($sCheckIp, $aWhiteList) === true
         ) {
             return true;
         }

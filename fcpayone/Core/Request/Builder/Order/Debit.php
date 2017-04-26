@@ -69,7 +69,8 @@ class Debit extends Base
     protected function setBankDataToRequest()
     {
         $aBankData = $this->getBankData();
-        if ($aBankData && count($aBankData) > 0 && isset($aBankData['bankaccount']) && isset($aBankData['bankcountry'])) {
+        if ($aBankData && count($aBankData) > 0 &&
+            isset($aBankData['bankaccount']) && isset($aBankData['bankcountry'])) {
             foreach ($aBankData as $sParam => $sValue) {
                 $this->setParam($sParam, $sValue);
             }

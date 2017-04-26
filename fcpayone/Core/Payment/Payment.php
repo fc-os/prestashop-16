@@ -165,7 +165,8 @@ class Payment
 
             foreach ($aPayments as $sMainPayment => $aSubPayments) {
                 foreach ($aSubPayments as $sSubPaymentBaseName) {
-                    $aClassNames[$sMainPayment][] = 'Payone\Payment\Methods\\' . $sMainPayment . '\\' . $sSubPaymentBaseName;
+                    $aClassNames[$sMainPayment][] = 'Payone\Payment\Methods\\' .
+                                                    $sMainPayment . '\\' . $sSubPaymentBaseName;
                 }
             }
             $this->aSubPaymentMethodClasses = $aClassNames;

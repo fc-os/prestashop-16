@@ -44,8 +44,11 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
         Context::getContext()->cookie->sFcPayoneUserAgent = $_SERVER['HTTP_USER_AGENT'];
 
         $oSelectedPayment = Registry::getPayment()->getSelectedPaymentMethod();
-        Registry::getLog()->log('process payment: ' . $oSelectedPayment->getId(), 1,
-            array(null, 'Cart', $this->context->cart->id));
+        Registry::getLog()->log(
+            'process payment: ' . $oSelectedPayment->getId(),
+            1,
+            array(null, 'Cart', $this->context->cart->id)
+        );
         $blSuccess = $this->fcPayonePaymentPreProcess($oSelectedPayment);
         if ($blSuccess) {
             if (Tools::isSubmit('payone_validate') && $this->fcPayoneValidateOrder()) {
@@ -99,7 +102,8 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
         $aErrors = Registry::getErrorHandler()->getErrors();
         if (is_array($aErrors) && count($aErrors) > 0) {
             $this->context->controller->errors = array_merge(
-                $this->context->controller->errors, $aErrors
+                $this->context->controller->errors,
+                $aErrors
             );
         }
         Registry::getErrorHandler()->deleteErrors();
@@ -157,8 +161,11 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
         $oSelectedPayment = Registry::getPayment()->getSelectedPaymentMethod();
         $oForm = new PayoneFrontendForm();
         $oRequest = new Request();
-        $blProcessed = $oRequest->processPayment($this->context, $oSelectedPayment,
-            $oForm->getFormData($oSelectedPayment));
+        $blProcessed = $oRequest->processPayment(
+            $this->context,
+            $oSelectedPayment,
+            $oForm->getFormData($oSelectedPayment)
+        );
         if ($blProcessed) {
             $oResponse = new Response();
             $oResponse->setResponse($oRequest->getResponse());
@@ -284,18 +291,37 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
             if (($rule = new CartRule((int)$cart_rule['obj']->id)) && Validate::isLoadedObject($rule)) {
                 if ($error = $rule->checkValidity($this->context, true, true)) {
                     $this->context->cart->removeCartRule((int)$rule->id);
-                    Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_CARTRULE_INVALID',
-                        true);
-                    if (isset($this->context->cookie) && isset($this->context->cookie->id_customer) && $this->context->cookie->id_customer && !empty($rule->code)) {
+                    Registry::getErrorHandler()->setError(
+                        'order',
+                        'FC_PAYONE_ERROR_CARTRULE_INVALID',
+                        true
+                    );
+                    if (isset($this->context->cookie) && isset($this->context->cookie->id_customer) &&
+                        $this->context->cookie->id_customer && !empty($rule->code)
+                    ) {
                         if (Configuration::get('PS_ORDER_PROCESS_TYPE') == 1) {
-                            Tools::redirect('index.php?controller=order-opc&submitAddDiscount=1&discount_name=' . urlencode($rule->code));
+                            $sUrl = 'index.php?controller=order-opc&submitAddDiscount=1&discount_name=';
+                        } else {
+                            $sUrl = 'index.php?controller=order&submitAddDiscount=1&discount_name=';
                         }
-                        Tools::redirect('index.php?controller=order&submitAddDiscount=1&discount_name=' . urlencode($rule->code));
+                        Tools::redirect($sUrl . urlencode($rule->code));
                     } else {
-                        $rule_name = isset($rule->name[(int)$this->context->cart->id_lang]) ? $rule->name[(int)$this->context->cart->id_lang] : $rule->code;
-                        $error = sprintf(Tools::displayError('CartRule ID %1s (%2s) used in this cart is not valid and has been withdrawn from cart'),
-                            (int)$rule->id, $rule_name);
-                        Registry::getLog()->log($error, 3, array(
+                        if (isset($rule->name[(int)$this->context->cart->id_lang])) {
+                            $rule_name = $rule->name[(int)$this->context->cart->id_lang];
+                        } else {
+                            $rule_name = $rule->code;
+                        }
+                        $error = sprintf(
+                            Tools::displayError(
+                                'CartRule ID %1s (%2s) used in this cart is not valid and has been withdrawn from cart'
+                            ),
+                            (int)$rule->id,
+                            $rule_name
+                        );
+                        Registry::getLog()->log(
+                            $error,
+                            3,
+                            array(
                                 '0000002',
                                 'Cart',
                                 (int)$this->context->cart->id
@@ -326,8 +352,7 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
 
         // If some delivery options are not defined, or not valid, use the first valid option
         foreach ($delivery_option_list as $id_address => $package) {
-            if (
-                !isset($cart_delivery_option[$id_address]) ||
+            if (!isset($cart_delivery_option[$id_address]) ||
                 !array_key_exists($cart_delivery_option[$id_address], $package)
             ) {
                 foreach ($package as $key => $val) {
@@ -341,10 +366,11 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
             foreach ($delivery_option_list[$id_address][$key_carriers]['carrier_list'] as $id_carrier => $data) {
                 foreach ($data['package_list'] as $id_package) {
                     // Rewrite the id_warehouse
-                    $package_list[$id_address][$id_package]['id_warehouse'] = (int)$this->context->cart->getPackageIdWarehouse(
-                        $package_list[$id_address][$id_package],
-                        (int)$id_carrier
-                    );
+                    $package_list[$id_address][$id_package]['id_warehouse'] =
+                        (int)$this->context->cart->getPackageIdWarehouse(
+                            $package_list[$id_address][$id_package],
+                            (int)$id_carrier
+                        );
                     $package_list[$id_address][$id_package]['id_carrier'] = $id_carrier;
                 }
             }
@@ -359,8 +385,11 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
                         (int)$this->context->cart->id_lang
                     );
                     if (!$this->context->country->active) {
-                        Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_COUNTRY_INVALID',
-                            true);
+                        Registry::getErrorHandler()->setError(
+                            'order',
+                            'FC_PAYONE_ERROR_COUNTRY_INVALID',
+                            true
+                        );
                         return false;
                     }
                 }
@@ -529,8 +558,11 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
     protected function fcPayoneAddTermsCheck()
     {
         $cms = new CMS(Configuration::get('PS_CONDITIONS_CMS_ID'), $this->context->language->id);
-        $link_conditions = $this->context->link->getCMSLink($cms, $cms->link_rewrite,
-            Configuration::get('PS_SSL_ENABLED'));
+        $link_conditions = $this->context->link->getCMSLink(
+            $cms,
+            $cms->link_rewrite,
+            Configuration::get('PS_SSL_ENABLED')
+        );
         if (!strpos($link_conditions, '?')) {
             $link_conditions .= '?content_only=1';
         } else {

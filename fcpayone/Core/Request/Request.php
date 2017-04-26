@@ -188,12 +188,12 @@ class Request
             return null;
         }
 
-        foreach ($aResponse as $iLinenum => $sLine) {
+        foreach ($aResponse as $iLineNum => $sLine) {
             $iPos = strpos($sLine, "=");
             if ($iPos > 0) {
-                $aNormalisedResponse[substr($sLine, 0, $iPos)] = trim(substr($sLine, $iPos + 1));
-            } elseif (strlen($sLine) > 0) {
-                $aNormalisedResponse[$iLinenum] = $sLine;
+                $aNormalisedResponse[\Tools::substr($sLine, 0, $iPos)] = trim(\Tools::substr($sLine, $iPos + 1));
+            } elseif (\Tools::strlen($sLine) > 0) {
+                $aNormalisedResponse[$iLineNum] = $sLine;
             }
         }
 

@@ -33,7 +33,8 @@ class Base extends \Payone\Forms\Frontend\Base
     public function setFormData()
     {
         parent::setFormData();
-        $this->getSmarty()->assign(array(
+        $this->getSmarty()->assign(
+            array(
                 'oFcPayonePayment' => $this->getFormPayment(),
                 'total' => $this->getContext()->cart->getOrderTotal(true, \Cart::BOTH),
             )
@@ -48,8 +49,10 @@ class Base extends \Payone\Forms\Frontend\Base
      */
     protected function setAjaxValidationUrl()
     {
-        $this->getSmarty()->assign('sFcPayoneValidationUrl',
-            $this->getHelper()->getModuleUrl() . 'Core/Validation/Ajax.php');
+        $this->getSmarty()->assign(
+            'sFcPayoneValidationUrl',
+            $this->getHelper()->getModuleUrl() . 'Core/Validation/Ajax.php'
+        );
     }
 
     /**

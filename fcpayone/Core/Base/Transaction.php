@@ -206,7 +206,9 @@ class Transaction
      */
     public function updateOrderId($iTxId, $iOrderId)
     {
-        $aData = array('id_order' => \pSQL($iOrderId));
+        $aData = array(
+            'id_order' => \pSQL($iOrderId)
+        );
         return (bool)\Db::getInstance()->update(self::getTable(), $aData, "txid = '{$iTxId}'");
     }
 
@@ -219,7 +221,9 @@ class Transaction
      */
     public function updateReference($iTxId, $sReference)
     {
-        $aData['reference'] = \pSQL($sReference);
+        $aData = array(
+            'reference' => \pSQL($sReference)
+        );
         return (bool)\Db::getInstance()->update(self::getTable(), $aData, "txid = '{$iTxId}'");
     }
 

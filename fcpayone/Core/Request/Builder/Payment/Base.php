@@ -145,8 +145,10 @@ class Base extends \Payone\Request\Builder\Base
     protected function getSuccessUrl($aBaseParams)
     {
         $aBaseParams['payone_redirect'] = 'success';
-        return Registry::getHelper()->buildModuleUrl($this->getPayment()->getController(),
-            $aBaseParams);
+        return Registry::getHelper()->buildModuleUrl(
+            $this->getPayment()->getController(),
+            $aBaseParams
+        );
     }
 
     /**
@@ -157,8 +159,10 @@ class Base extends \Payone\Request\Builder\Base
     protected function getErrorUrl($aBaseParams)
     {
         $aBaseParams['payone_redirect'] = 'error';
-        return Registry::getHelper()->buildModuleUrl($this->getPayment()->getController(),
-            $aBaseParams);
+        return Registry::getHelper()->buildModuleUrl(
+            $this->getPayment()->getController(),
+            $aBaseParams
+        );
     }
 
     /**
@@ -169,8 +173,10 @@ class Base extends \Payone\Request\Builder\Base
     protected function getBackUrl($aBaseParams)
     {
         $aBaseParams['payone_redirect'] = 'back';
-        return Registry::getHelper()->buildModuleUrl($this->getPayment()->getController(),
-            $aBaseParams);
+        return Registry::getHelper()->buildModuleUrl(
+            $this->getPayment()->getController(),
+            $aBaseParams
+        );
     }
 
     /**

@@ -36,7 +36,7 @@ class CreditCard extends Base
     {
         parent::setFormData();
 
-        $oLang = Registry::getHelperPrestashop()->fcPayoneGetLanguage($this->getContext()->cart->id_lang);
+        $oLang = new \Language($this->getContext()->cart->id_lang);
         $this->getSmarty()->assign('sFcPayoneRequestLang', $oLang->iso_code);
 
         $sRequestJsData = '';

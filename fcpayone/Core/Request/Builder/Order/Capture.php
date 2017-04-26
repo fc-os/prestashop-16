@@ -74,7 +74,6 @@ class Capture extends Base
             } else {
                 $this->setParam('settleaccount', 'no');
             }
-
         }
         return $blReturn;
     }

@@ -25,16 +25,15 @@
     <ul class="nav nav-tabs js-root-nav-tabs">
         {foreach from=$aFcPayoneForms key=sFormType item=aForm name=formtypes}
             <li {if $sFormType == $sFcPayoneActiveFormType}class="active"{/if}>
-                <a href="#pane-{$sFormType}-{$smarty.foreach.formtypes.iteration}" data-toggle="tab">
-                    {assign var=sFcPayoneFormTitleIdent value='FC_PAYONE_BACKEND_CONFIGURATION_TITLE_'|cat:$sFormType|upper}
-                    {$oFcPayoneTranslator->translate($sFcPayoneFormTitleIdent)}
+                <a href="#pane-{$sFormType|escape:'html':'UTF-8'}-{$smarty.foreach.formtypes.iteration|escape:'html':'UTF-8'}" data-toggle="tab">
+                    {assign var=sFcPayoneFormTitleIdent value='FC_PAYONE_BACKEND_CONFIGURATION_TITLE_'|cat:$sFormType|upper|escape:'html':'UTF-8'}
+                    {$oFcPayoneTranslator->translate($sFcPayoneFormTitleIdent)|escape:'html':'UTF-8'}
                 </a>
             </li>
         {/foreach}
     </ul>
     <div class="panel">
         <div class="tab-content">
-
             {foreach from=$aFcPayoneForms key=sFormType item=aFormTypes name=formtypes}
                 {assign var=blFcPayoneHasActiveForm value=false}
                 {foreach from=$aFormTypes item=aForm name=forms}
@@ -42,18 +41,18 @@
                         {assign var=blFcPayoneHasActiveForm value=true}
                     {/if}
                 {/foreach}
-                <div id="pane-{$sFormType}-{$smarty.foreach.formtypes.iteration}" class="tab-pane {if $sFormType == $sFcPayoneActiveFormType}active{/if}">
+                <div id="pane-{$sFormType|escape:'html':'UTF-8'}-{$smarty.foreach.formtypes.iteration|escape:'html':'UTF-8'}" class="tab-pane {if $sFormType == $sFcPayoneActiveFormType}active{/if}">
                     <div class="tabbable row tab-content js-sub-tabbable">
                         <div class="sidebar col-lg-3">
                             <ul class="nav nav-pills js-sub-nav-tabs">
                                 {foreach from=$aFormTypes item=aForm name=forms}
-                                    <li class="nav-item col-xs-12 {if $aForm.active || (!$blFcPayoneHasActiveForm && $smarty.foreach.forms.first)} active{/if}"><a href="#pane-{$sFormType}-sub{$smarty.foreach.forms.iteration}" data-toggle="tab">{$aForm.title}</a></li>
+                                    <li class="nav-item col-xs-12 {if $aForm.active || (!$blFcPayoneHasActiveForm && $smarty.foreach.forms.first)} active{/if}"><a href="#pane-{$sFormType|escape:'html':'UTF-8'}-sub{$smarty.foreach.forms.iteration|escape:'html':'UTF-8'}" data-toggle="tab">{$aForm.title|escape:'html':'UTF-8'}</a></li>
                                 {/foreach}
                             </ul>
                         </div>
                         <div  class="tab-content col-lg-9">
                             {foreach from=$aFormTypes item=aForm name=forms}
-                                <div id="pane-{$sFormType}-sub{$smarty.foreach.forms.iteration}" class="tab-pane {if $aForm.active || (!$blFcPayoneHasActiveForm && $smarty.foreach.forms.first)}active{/if}">
+                                <div id="pane-{$sFormType|escape:'html':'UTF-8'}-sub{$smarty.foreach.forms.iteration|escape:'html':'UTF-8'}" class="tab-pane {if $aForm.active || (!$blFcPayoneHasActiveForm && $smarty.foreach.forms.first)}active{/if}">
                                     {$aForm.content}
                                 </div>
                             {/foreach}

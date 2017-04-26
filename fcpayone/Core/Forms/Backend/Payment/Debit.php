@@ -63,7 +63,7 @@ class Debit extends Base
                     ),
                     array(
                         'type' => 'switch',
-                        'hint' => $this->translate('FC_PAYONE_BACKEND_PAYMENT_SHOW_BIC_DESC'),
+                        //'hint' => $this->translate('FC_PAYONE_BACKEND_PAYMENT_SHOW_BIC_DESC'),
                         'name' => 'FC_PAYONE_PAYMENT_SHOW_BIC_' . \Tools::strtoupper($this->getIdent()),
                         'label' => $this->translate('FC_PAYONE_BACKEND_PAYMENT_SHOW_BIC'),
                         'is_bool' => true,

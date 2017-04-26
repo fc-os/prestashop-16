@@ -126,7 +126,6 @@ class Mandate extends Base
     public function setMode($sMode)
     {
         $this->sMode = $sMode;
-
     }
 
     /**
@@ -137,7 +136,6 @@ class Mandate extends Base
     protected function getMode()
     {
         return $this->sMode;
-
     }
 
     /**

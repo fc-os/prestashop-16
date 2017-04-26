@@ -24,10 +24,10 @@
 <div class="panel bootstrap">
     <div class="row">
         <div class="col-sm-3">
-            <img src="{$sFcPayoneLogo}" class="img-responsive">
+            <img src="{$sFcPayoneLogo|escape:'html':'UTF-8'}" class="img-responsive">
         </div>
         <div class="col-sm-9">
-            {$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_INFO_PAYONE_DESC')}
+            {$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_INFO_PAYONE_DESC')|escape:'html':'UTF-8'}
         </div>
     </div>
 </div>

@@ -58,8 +58,10 @@ class Order extends Base
 
         //need to be called at the end
         $this->displayErrors();
-        return $this->getModule()->display(Registry::getHelper()->getModulePath(),
-            'views/templates/hook/admin/adminorder.tpl');
+        return $this->getModule()->display(
+            Registry::getHelper()->getModulePath(),
+            'views/templates/hook/admin/adminorder.tpl'
+        );
     }
 
 
@@ -119,7 +121,6 @@ class Order extends Base
         if ($aLastRequest) {
             $this->getSmarty()->assign('aFcPayoneLastRequest', $aLastRequest);
         }
-
     }
 
     /**
@@ -192,7 +193,9 @@ class Order extends Base
         }
 
         $this->getSmarty()->assign('blFcPayoneAccountSettlement', $blSettleAccount);
-        $sForm = $this->getSmarty()->fetch(Registry::getHelper()->getModulePath() . 'views/templates/hook/admin/inc/capture.tpl');
+        $sForm = $this->getSmarty()->fetch(
+            Registry::getHelper()->getModulePath() . 'views/templates/hook/admin/inc/capture.tpl'
+        );
         $this->getSmarty()->assign('sFcPayoneCaptureForm', $sForm);
     }
 
@@ -247,7 +250,6 @@ class Order extends Base
             $oCurrency = Registry::getHelperPrestashop()->fcPayoneGetCurrency($oOrder->id_currency);
             $this->getSmarty()->assign('sFcPayoneCurrencyIso', $oCurrency->iso_code);
         }
-
     }
 
     /**
@@ -271,7 +273,9 @@ class Order extends Base
             $blBankDataNeeded = true;
         }
         $this->getSmarty()->assign('blFcPayoneBankDataNeeded', $blBankDataNeeded);
-        $sForm = $this->getSmarty()->fetch(Registry::getHelper()->getModulePath() . 'views/templates/hook/admin/inc/debit.tpl');
+        $sForm = $this->getSmarty()->fetch(
+            Registry::getHelper()->getModulePath() . 'views/templates/hook/admin/inc/debit.tpl'
+        );
         $this->getSmarty()->assign('sFcPayoneDebitForm', $sForm);
     }
 

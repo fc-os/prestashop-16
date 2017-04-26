@@ -24,26 +24,26 @@
 <div class="col-xs-6">
     <form class="submitPayoneForm" name="submitPayoneDebitForm" method="post" action="#formPayonePanel"
           data-payone-confirm="{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_DEBIT_CONFIRM')}">
-        <h4>{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION')}</h4>
+        <h4>{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION')|escape:'html':'UTF-8'}</h4>
         <div class="form-group">
             <div class="input-group">
-                <label for="payone_amount_debit">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_AMOUNT')}
+                <label for="payone_amount_debit">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_AMOUNT')|escape:'html':'UTF-8'}
                     {if isset($sFcPayoneCurrencyIso)}
-                        {$sFcPayoneCurrencyIso}
+                        {$sFcPayoneCurrencyIso|escape:'html':'UTF-8'}
                     {/if}
                 </label>
                 <input id="payone_amount_debit" type="text" name="payone_amount" class="form-control"
-                       value="{if isset($smarty.request.payone_amount)}{$smarty.request.payone_amount}{/if}">
+                       value="{if isset($smarty.request.payone_amount)}{$smarty.request.payone_amount|escape:'html':'UTF-8'}{/if}">
             </div>
         </div>
         {if isset($blFcPayoneBankDataNeeded) && $blFcPayoneBankDataNeeded}
             <div class="form-group">
-                <button class="btn btn-primary js-payone-open-bankdata">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION_SHOW_BANKDATA')}</button>
+                <button class="btn btn-primary js-payone-open-bankdata">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION_SHOW_BANKDATA')|escape:'html':'UTF-8'}</button>
             </div>
             <div class="js-payone-bankdata" style="display:none;">
                 <div class="form-group">
                     <div class="input-group">
-                        <label for="bankcountry">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_BANKCOUNTRY')} </label>
+                        <label for="bankcountry">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_BANKCOUNTRY')|escape:'html':'UTF-8'} </label>
                         <select id="bankcountry" class="selectbox" name="payone_bankcountry">
                             <option name="DE"
                                     {if isset($smarty.request.payone_bankcountry) && $smarty.request.payone_bankaccount == 'DE'}selected{/if}>
@@ -62,30 +62,30 @@
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <label for="bankaccount">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_BANKACCOUNT')} </label>
+                        <label for="bankaccount">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_BANKACCOUNT')|escape:'html':'UTF-8'} </label>
                         <input id="bankaccount" type="text" name="payone_bankaccount" class="form-control"
-                               value="{if isset($smarty.request.payone_bankaccount)}{$smarty.request.payone_bankaccount}{/if}">
+                               value="{if isset($smarty.request.payone_bankaccount)}{$smarty.request.payone_bankaccount|escape:'html':'UTF-8'}{/if}">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <label for="bankcode">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_BANKCODE')} </label>
+                        <label for="bankcode">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_BANKCODE')|escape:'html':'UTF-8'} </label>
                         <input id="bankcode" type="text" name="payone_bankcode" class="form-control"
-                               value="{if isset($smarty.request.payone_bankcode)}{$smarty.request.payone_bankcode}{/if}">
+                               value="{if isset($smarty.request.payone_bankcode)}{$smarty.request.payone_bankcode|escape:'html':'UTF-8'}{/if}">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <label for="holder">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_BANKACCOUNTHOLDER')} </label>
+                        <label for="holder">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_BANKACCOUNTHOLDER')|escape:'html':'UTF-8'} </label>
                         <input id="holder" type="text" name="payone_bankaccountholder" class="form-control"
-                               value="{if isset($smarty.request.payone_bankaccountholder)}{$smarty.request.payone_bankaccountholder}{/if}">
+                               value="{if isset($smarty.request.payone_bankaccountholder)}{$smarty.request.payone_bankaccountholder|escape:'html':'UTF-8'}{/if}">
                     </div>
                 </div>
             </div>
         {/if}
         <div class="form-group">
             <button type="submit" name="submitPayoneDebit"
-                    class="btn btn-primary">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION_EXECUTE')}</button>
+                    class="btn btn-primary">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION_EXECUTE')|escape:'html':'UTF-8'}</button>
         </div>
     </form>
 </div>

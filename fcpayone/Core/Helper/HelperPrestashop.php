@@ -23,7 +23,7 @@
 
 namespace Payone\Helper;
 
-class HelperPrestashop extends \FcPayoneBase
+class HelperPrestashop
 {
 
     /**
@@ -134,15 +134,5 @@ class HelperPrestashop extends \FcPayoneBase
             return new \Order($sId);
         }
         return null;
-    }
-
-    /**
-     * Returns state object
-     *
-     * @return string
-     */
-    public function fcPayoneGetModuleVersion()
-    {
-        return $this->version;
     }
 }
