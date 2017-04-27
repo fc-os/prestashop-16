@@ -30,4 +30,13 @@
             {$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_INFO_PAYONE_DESC')|escape:'html':'UTF-8'}
         </div>
     </div>
+    {if isset($sFcPayoneButtonUrl)}
+    <br/>
+    <br/>
+    <div class="row">
+        <div class="col-sm-3">
+            <a class="btn btn-default button-payone" target="_blank" href="{$sFcPayoneButtonUrl|escape:'html':'UTF-8'}">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_INFO_PAYONE_BUTTON')|escape:'html':'UTF-8'}</a>
+        </div>
+    </div>
+    {/if}
 </div>

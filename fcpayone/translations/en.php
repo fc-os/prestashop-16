@@ -129,6 +129,7 @@ $_MODULE['<{fcpayone}prestashop>translations_2ea386c3f31955d924196fdbc18fed36'] 
 $_MODULE['<{fcpayone}prestashop>translations_e572141b541f2066a8585878c054e30f'] = 'E-Wallet';
 $_MODULE['<{fcpayone}prestashop>translations_0ca089cb90c83c93164af24ddb4ac617'] = 'Show IBAN/BIC fields';
 $_MODULE['<{fcpayone}prestashop>translations_72c669e14553dc4caccae068e2c19b9f'] = 'Show BIC field';
+$_MODULE['<{fcpayone}prestashop>translations_01336698642d451600a46aa50b913af2'] = 'Get your PAYONE account here!';
 $_MODULE['<{fcpayone}prestashop>translations_7302fcc12d2e0bd525e7bdad64bb4d20'] = 'Demand (Capture)';
 $_MODULE['<{fcpayone}prestashop>translations_90ad944b30c063afbebafc72329cbe2a'] = 'Chargeback fee';
 $_MODULE['<{fcpayone}prestashop>translations_14029bf389480b2502579020292c6822'] = 'Reservation';

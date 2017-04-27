@@ -42,7 +42,6 @@ class FcPayone extends \PaymentModule
         }
         $this->author = 'FATCHIP GmbH';
         $this->need_instance = 0;
-        #$this->module_key = 'd8c52a8f94d05bebfbd5848a138a33b7';
         $this->bootstrap = true;
         $this->is_eu_compatible = 1;
         $this->currencies = true;
@@ -104,7 +103,6 @@ class FcPayone extends \PaymentModule
      */
     public function uninstall()
     {
-
         if (!$this->fcPayoneDeleteTables()) {
             return false;
         }
@@ -238,9 +236,15 @@ class FcPayone extends \PaymentModule
             }
         }
 
+        $this->fcPayoneAddRegisterButton();
+
         $this->context->smarty->assign(
             'sFcPayoneLogo',
             $this->fcGetPayoneHelper()->getModuleUrl() . 'views/img/PAYONE_Logo_RGB.jpg'
+        );
+        $this->context->controller->addCSS(
+            $this->fcGetPayoneHelper()->getModulePath() . 'views/css/backend/payone.css',
+            'all'
         );
         $sContent = $this->context->smarty->fetch(
             $this->fcGetPayoneHelper()->getModulePath() . 'views/templates/admin/info.tpl'
@@ -251,6 +255,28 @@ class FcPayone extends \PaymentModule
             $this->fcGetPayoneHelper()->getModulePath() . 'views/templates/admin/configuration.tpl'
         );
         return $sContent;
+    }
+
+    /**
+     * Adds register button to info template if needed
+     *
+     */
+    protected function fcPayoneAddRegisterButton()
+    {
+        if (!\Configuration::get('FC_PAYONE_CONNECTION_MERCHANTID') ||
+            !\Configuration::get('FC_PAYONE_CONNECTION_PORTALID') ||
+            !\Configuration::get('FC_PAYONE_CONNECTION_PORTALKEY')
+        ) {
+            if ($this->context->language->iso_code == 'de') {
+                $sCallToActionUrl = 'https://www.payone.com/go/payment/';
+            } else {
+                $sCallToActionUrl = 'https://www.payone.com/go/payment/en/';
+            }
+            $this->context->smarty->assign(
+                'sFcPayoneButtonUrl',
+                $sCallToActionUrl
+            );
+        }
     }
 
     /**
@@ -623,7 +649,7 @@ class FcPayone extends \PaymentModule
             return;
         }
         $this->context->controller->addCSS(
-            $this->fcGetPayoneHelper()->getModulePath() . 'views/css/paypal_express_btn_cart.css',
+            $this->fcGetPayoneHelper()->getModulePath() . 'views/css/frontend/paypal_express_btn_cart.css',
             'all'
         );
 
