@@ -246,7 +246,7 @@ class Validation
         }
         $sCountry = \Configuration::get('FC_PAYONE_PAYMENT_COUNTRY_' . \Tools::strtoupper($sPayment));
         if (is_string($sCountry)) {
-            $aCountry = unserialize($sCountry);
+            $aCountry = \Tools::jsonDecode($sCountry);
             if (is_array($aCountry) && in_array($sUserCountryId, $aCountry)) {
                 return true;
             }

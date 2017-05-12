@@ -55,7 +55,7 @@ class Debit extends Base
         //$this->setParam('bankaccountholder',$this->getParam('firstname').' '.$this->getParam('lastname'));
 
         if (isset(\Context::getContext()->cookie->sFcPayoneMandate)) {
-            $aMandate = unserialize(\Context::getContext()->cookie->sFcPayoneMandate);
+            $aMandate = \Tools::jsonDecode(\Context::getContext()->cookie->sFcPayoneMandate);
             $this->setParam('mandate_identification', $aMandate['mandate_identification']);
         }
     }

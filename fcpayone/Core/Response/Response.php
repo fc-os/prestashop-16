@@ -149,7 +149,7 @@ class Response
         $oValidation = new ResponseValidation();
         $blValid = $oValidation->validateMandateManageResponse($this->getResponse());
         if ($blValid) {
-            \Context::getContext()->cookie->sFcPayoneMandate = serialize($this->getResponse());
+            \Context::getContext()->cookie->sFcPayoneMandate = \Tools::jsonEncode($this->getResponse());
             return true;
         }
         return false;
@@ -314,7 +314,7 @@ class Response
         $oContext->cart->id_address_delivery = (int)$oAddress->id;
         $oContext->cart->id_address_invoice = (int)$oAddress->id;
         $oContext->cart->secure_key = $oCustomer->secure_key;
-        $oContext->cart->delivery_option = serialize($oContext->cart->getDeliveryOption());
+        $oContext->cart->delivery_option = \Tools::jsonEncode($oContext->cart->getDeliveryOption());
         $oContext->cart->update();
 
         \Hook::exec('authentication');

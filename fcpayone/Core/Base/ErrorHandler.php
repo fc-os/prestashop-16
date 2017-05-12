@@ -118,14 +118,14 @@ class ErrorHandler
      */
     protected function updateErrorKeys($sType, $sKey)
     {
-        $aErrorKeys = unserialize($this->getSessionVar($this->getErrorKeyIdent()));
+        $aErrorKeys = \Tools::jsonDecode($this->getSessionVar($this->getErrorKeyIdent()));
         if (!isset($aErrorKeys[$sType]) || !is_array($aErrorKeys[$sType])) {
             $aErrorKeys[$sType] = array();
         }
         if (is_array($aErrorKeys[$sType]) && !in_array($sKey, $aErrorKeys[$sType])) {
             $aErrorKeys[$sType][] = $sKey;
         }
-        $sErrorKeys = serialize($aErrorKeys);
+        $sErrorKeys = \Tools::jsonEncode($aErrorKeys);
         $this->setSessionVar($this->getErrorKeyIdent(), $sErrorKeys);
     }
 
@@ -182,7 +182,7 @@ class ErrorHandler
                 }
             }
         }
-        $sErrorKeys = serialize($aAllErrorKeys);
+        $sErrorKeys = \Tools::jsonEncode($aAllErrorKeys);
         $this->setSessionVar($this->getErrorKeyIdent(), $sErrorKeys);
     }
 
@@ -195,7 +195,7 @@ class ErrorHandler
     protected function getErrorKeys($sType = null)
     {
         $aErrorKeys = array();
-        $aSessionErrorKeys = unserialize($this->getSessionVar($this->getErrorKeyIdent()));
+        $aSessionErrorKeys = \Tools::jsonDecode($this->getSessionVar($this->getErrorKeyIdent()));
         if ($sType && isset($aSessionErrorKeys[$sType]) &&
             is_array($aSessionErrorKeys[$sType]) && count($aSessionErrorKeys[$sType]) > 0
         ) {
