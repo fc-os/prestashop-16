@@ -120,16 +120,27 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
         $oCart = $this->context->cart;
         $oCustomer = new Customer($oCart->id_customer);
         $oCurrency = $this->context->currency;
-        $dTotal = (float)$oCart->getOrderTotal(true, Cart::BOTH);
+
         $sCartId = (int)$oCart->id;
         $oSelectedPayment = Registry::getPayment()->getSelectedPaymentMethod();
         $sPaymentTitle = 'PAYONE - ' . $oSelectedPayment->getTitle();
+
+        $oPayoneOrder = new PayoneOrder();
+        $dTotal = (float)$oPayoneOrder->getFormattedRequestAmount(
+            \Context::getContext()->cookie->iFcPayoneTransactionId
+        );
+
+        if (!$dTotal || $dTotal == 0) {
+            Registry::getLog()->log('Could not fetch order amount from request', 3, array(null, 'Cart', $oCart->id));
+            $blError = true;
+        }
 
         $sState = Configuration::get('PS_OS_PREPARATION');
         if ($blError) {
             $sState = Configuration::get('PS_OS_ERROR');
         }
         Registry::getLog()->log('create order', 1, array(null, 'Cart', $oCart->id));
+
         $this->module->validateOrder(
             $sCartId,
             $sState,

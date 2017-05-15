@@ -307,4 +307,40 @@ class Order
             }
         }
     }
+
+    /**
+     * Returns unformatted request amount for txid
+     *
+     * @param $iRawTxId
+     * @return int
+     */
+    public function getOrderRequestAmount($iRawTxId)
+    {
+        if ($iRawTxId) {
+            $iTxId = (int)\pSQL($iRawTxId);
+            $sTable = _DB_PREFIX_ . \Payone\Request\Request::getTable();
+            $sQ = "select request from " . $sTable .
+                " where txid = '{$iTxId}' and status = 'APPROVED' order by date asc";
+            $aRow = \Db::getInstance()->getRow($sQ);
+            if (isset($aRow['request'])) {
+                $oRequest = \Tools::jsonDecode($aRow['request']);
+                return (int)$oRequest->amount;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Returns formatted request order amount
+     *
+     * @param $iTxId
+     * @return float
+     */
+    public function getFormattedRequestAmount($iTxId)
+    {
+        if (($iAmount = $this->getOrderRequestAmount($iTxId))) {
+            $iCalcAmount = ($iAmount / 100);
+            return number_format($iCalcAmount, 2, '.','');
+        }
+    }
 }
