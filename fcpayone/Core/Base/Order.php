@@ -320,7 +320,7 @@ class Order
             $iTxId = (int)\pSQL($iRawTxId);
             $sTable = _DB_PREFIX_ . \Payone\Request\Request::getTable();
             $sQ = "select request from " . $sTable .
-                " where txid = '{$iTxId}' and status = 'APPROVED' order by date asc";
+                " where txid = '{$iTxId}' and (status = 'APPROVED' || status = 'REDIRECT') order by date asc";
             $aRow = \Db::getInstance()->getRow($sQ);
             if (isset($aRow['request'])) {
                 $oRequest = \Tools::jsonDecode($aRow['request']);
