@@ -201,7 +201,7 @@ class Base
         if (strpos($sKey, '[]') !== false) {
             $sCleanKey = str_replace('[]', '', $sKey);
             $aValues = \Tools::getValue($sCleanKey);
-            $sValues = serialize($aValues);
+            $sValues = \Tools::jsonEncode($aValues);
             \Configuration::updateValue($sCleanKey, $sValues);
         } else {
             \Configuration::updateValue($sKey, \Tools::getValue($sKey));
@@ -221,7 +221,7 @@ class Base
         if (strpos($sKey, '[]') !== false) {
             $sCleanKey = str_replace('[]', '', $sKey);
             $sValues = \Configuration::get($sCleanKey);
-            return unserialize($sValues);
+            return \Tools::jsonDecode($sValues);
         } else {
             return \Configuration::get($sKey);
         }

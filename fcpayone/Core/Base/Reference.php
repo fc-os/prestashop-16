@@ -104,7 +104,7 @@ class Reference
      */
     protected function getMaxReference()
     {
-        $sReferencePrefix = pSQL($this->getReferencePrefix());
+        $sReferencePrefix = \pSQL($this->getReferencePrefix());
         $sTable = _DB_PREFIX_ . self::getTable();
         $sQ = "select max(reference) as reference from $sTable where reference_prefix='{$sReferencePrefix}'";
         $aRow = \Db::getInstance()->getRow($sQ);
@@ -164,9 +164,10 @@ class Reference
      */
     public static function updateTxId($sReference, $sTxId)
     {
+        $sReference = \pSQL($sReference);
         \Db::getInstance()->update(
             self::getTable(),
-            array('txid' => $sTxId),
+            array('txid' => (int) $sTxId),
             "concat(reference_prefix,reference) = '{$sReference}'"
         );
     }

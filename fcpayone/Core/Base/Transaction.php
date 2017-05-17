@@ -180,7 +180,7 @@ class Transaction
                 $aData['sequencenumber'] = \pSQL($aTransactionData['sequencenumber']);
             }
 
-            $aData['data'] = serialize(\Payone\Base\Registry::getHelper()->cleanData($aTransactionData));
+            $aData['data'] = \Tools::jsonEncode(\Payone\Base\Registry::getHelper()->cleanData($aTransactionData));
             $aData['date'] = date('Y-m-d H:i:s', $aTransactionData['txtime']);
             return (bool)\Db::getInstance()->insert(self::getTable(), $aData);
         }
@@ -209,6 +209,7 @@ class Transaction
         $aData = array(
             'id_order' => \pSQL($iOrderId)
         );
+        $iTxId = (int) $iTxId;
         return (bool)\Db::getInstance()->update(self::getTable(), $aData, "txid = '{$iTxId}'");
     }
 
@@ -224,6 +225,7 @@ class Transaction
         $aData = array(
             'reference' => \pSQL($sReference)
         );
+        $iTxId = (int) $iTxId;
         return (bool)\Db::getInstance()->update(self::getTable(), $aData, "txid = '{$iTxId}'");
     }
 
@@ -237,8 +239,9 @@ class Transaction
     public function getTransactions($sIdent, $sField = 'id_order')
     {
         $sTable = _DB_PREFIX_ . self::getTable();
-        $sField = \pSQL($sField);
-        $sQ = "select * from $sTable where $sField = '{$sIdent}' order by date asc";
+        $sField = \bqSQL($sField);
+        $sIdent = \pSQL($sIdent);
+        $sQ = "select * from $sTable where `{$sField}` = '{$sIdent}' order by date asc";
         $aTransactions = \DB::getInstance()->executeS($sQ);
         $aTransactionList = array();
         if ($aTransactions && is_array($aTransactions) && count($aTransactions) > 0) {
@@ -257,7 +260,7 @@ class Transaction
      */
     protected function getProcessedTransactionData($aTransaction)
     {
-        $aData = unserialize($aTransaction['data']);
+        $aData = \Tools::jsonDecode($aTransaction['data']);
         $aTransaction['data'] = $aData;
         return $aTransaction;
     }
@@ -348,9 +351,10 @@ class Transaction
      */
     public function getFirstTransaction($sIdent, $sField = 'id_order')
     {
-        $sField = \pSQL($sField);
+        $sField = \bqSQL($sField);
+        $sIdent = \pSQL($sIdent);
         $sTable = _DB_PREFIX_ . self::getTable();
-        $sQ = "select * from $sTable where $sField = '{$sIdent}' order by date asc";
+        $sQ = "select * from $sTable where `{$sField}` = '{$sIdent}' order by date asc";
         $aRawTransaction = \DB::getInstance()->getRow($sQ);
         $aTransaction = array();
         if ($aRawTransaction && is_array($aRawTransaction) && count($aRawTransaction) > 0) {

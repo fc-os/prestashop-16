@@ -279,7 +279,7 @@ class Mandate
             $oContext = \Context::getContext();
         }
         if (isset($oContext->cookie->sFcPayoneMandate) &&
-            ($aMandate = unserialize($oContext->cookie->sFcPayoneMandate))
+            ($aMandate = \Tools::jsonDecode($oContext->cookie->sFcPayoneMandate))
         ) {
             $this->setMandateIdent($aMandate['mandate_identification']);
             $this->setMandateStatus($aMandate['mandate_status']);
