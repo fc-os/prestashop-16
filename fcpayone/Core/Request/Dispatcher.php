@@ -277,7 +277,10 @@ class Dispatcher
             $aResponse[] = "errormessage=Path to curl could not be determined";
         }
         if ($sCurlPath) {
-            $sCommand = $sCurlPath . " -m {$this->getTimeout()} -k -d \"" . $sPostData . "\" " . $sPostUrl;
+            $sEscapedTimeout = escapeshellarg($this->getTimeout());
+            $sEscapedPostData = escapeshellarg($sPostData);
+            $sEscapedPostUrl = escapeshellarg($sPostUrl);
+            $sCommand = $sCurlPath . " -m {$sEscapedTimeout} -k -d {$sEscapedPostData} {$sEscapedPostUrl}";
 
             $aResponse = system($sCommand, $iSysOut);
             if ($iSysOut != 0) {

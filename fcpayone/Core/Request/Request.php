@@ -225,13 +225,13 @@ class Request
             $aData['reference'] = \pSQL($aRequest['reference']);
         }
 
-        $aData['request'] = \Tools::jsonEncode($aRequest);
+        $aData['request'] = \pSQL(\Tools::jsonEncode($aRequest));
         //if there is an status in the getfile response, something went wrong with
         // request
         if ($aRequest['request'] == 'getfile' && (!isset($aResponse['status']))) {
             $aData['response'] = base64_encode($this->getResponse(true));
         } else {
-            $aData['response'] = \Tools::jsonEncode($aResponse);
+            $aData['response'] =\pSQL(\Tools::jsonEncode($aResponse));
         }
 
         $aData['status'] = \pSQL($aResponse['status']);

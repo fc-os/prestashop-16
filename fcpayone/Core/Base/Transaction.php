@@ -180,7 +180,7 @@ class Transaction
                 $aData['sequencenumber'] = \pSQL($aTransactionData['sequencenumber']);
             }
 
-            $aData['data'] = \Tools::jsonEncode(\Payone\Base\Registry::getHelper()->cleanData($aTransactionData));
+            $aData['data'] = \pSQL(\Tools::jsonEncode(\Payone\Base\Registry::getHelper()->cleanData($aTransactionData)));
             $aData['date'] = date('Y-m-d H:i:s', $aTransactionData['txtime']);
             return (bool)\Db::getInstance()->insert(self::getTable(), $aData);
         }
