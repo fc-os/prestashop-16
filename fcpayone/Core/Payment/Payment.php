@@ -73,6 +73,7 @@ class Payment
         'Wallet' => array(
             'PayPal',
             'PayPalExpress',
+            'Paydirekt',
         ),
     );
 

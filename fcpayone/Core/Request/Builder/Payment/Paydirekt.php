@@ -21,21 +21,28 @@
  * @link      http://www.payone.de
  */
 
-namespace Payone\Validation\Payment;
+namespace Payone\Request\Builder\Payment;
 
-class PayPal extends Base
+class Paydirekt extends Base
 {
-    /**
-     * Hook for payment validation
-     *
-     * @return boolean
-     */
-    protected function isValid()
-    {
-        parent::isValid();
 
-        if ($this->isAfterRedirect()) {
-            $this->isValidUserAgent();
-        }
+    /**
+     * Builds payment request
+     */
+    public function build()
+    {
+        parent::build();
+        $this->setParam('narrative_text', $this->getPayment()->getTitle());
+        $this->setUserToRequest();
+        $this->setPaymentDataToRequest();
+        $this->addRedirectParameters();
+    }
+
+    /**
+     * Set paypal request params
+     */
+    protected function setPaymentDataToRequest()
+    {
+        $this->setParam('wallettype', $this->getPayment()->getSubClearingType());
     }
 }
