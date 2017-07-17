@@ -23,7 +23,8 @@
 
 namespace Payone\Validation\Payment;
 
-class PayPalExpress extends Base
+
+class Wallet extends Base
 {
     /**
      * Hook for payment validation

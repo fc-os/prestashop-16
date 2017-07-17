@@ -21,21 +21,44 @@
  * @link      http://www.payone.de
  */
 
-namespace Payone\Validation\Payment;
+namespace Payone\Payment\Methods\Wallet;
 
-class PayPal extends Base
+class Paydirekt extends Wallet
 {
-    /**
-     * Hook for payment validation
-     *
-     * @return boolean
-     */
-    protected function isValid()
-    {
-        parent::isValid();
 
-        if ($this->isAfterRedirect()) {
-            $this->isValidUserAgent();
-        }
-    }
+    /**
+     * ID
+     *
+     * @var string
+     */
+    protected $sId = 'wallet_paydirekt';
+
+
+    /**
+     * ID of parent payment
+     *
+     * @var string
+     */
+    protected $sParentId = 'wallet';
+
+    /**
+     * Clearing type
+     *
+     * @var string
+     */
+    protected $sSubClearingType = 'PDT';
+
+    /**
+     * Payment template
+     *
+     * @var string
+     */
+    protected $sTemplate = 'paydirekt.tpl';
+
+    /**
+     * Payment need redirect urls
+     *
+     * @var boolean
+     */
+    protected $blIsRedirectPayment = true;
 }

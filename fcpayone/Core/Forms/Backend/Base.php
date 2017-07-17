@@ -221,7 +221,7 @@ class Base
         if (strpos($sKey, '[]') !== false) {
             $sCleanKey = str_replace('[]', '', $sKey);
             $sValues = \Configuration::get($sCleanKey);
-            return \Tools::jsonDecode($sValues);
+            return \Tools::jsonDecode($sValues, true);
         } else {
             return \Configuration::get($sKey);
         }
