@@ -40,6 +40,7 @@ $_MODULE['<{fcpayone}prestashop>translations_e4a03740cfe2af77546dad01090d2e4f'] 
 $_MODULE['<{fcpayone}prestashop>translations_78278c26faa7f57433fb7b934a06bcac'] = 'SEPA-Mandat konnte nicht heruntergeladen werden.';
 $_MODULE['<{fcpayone}prestashop>translations_5f78985d7a74950d6c698e3c6567f964'] = 'Bitte geben Sie ein gültigen Betrag ein.';
 $_MODULE['<{fcpayone}prestashop>translations_f86989707ccdbae8626ca4c6ff6041d5'] = 'Keine Transaktionsdaten gefunden.';
+$_MODULE['<{fcpayone}prestashop>translations_9e6032e55585ef969a96a6ac0f1c095b'] = 'Bitte hinterlegen Sie eine E-Mail-Adresse in Ihren Adressinformationen.';
 $_MODULE['<{fcpayone}prestashop>translations_81b804d7f7dcc511534b982c295162e4'] = 'Wollen Sie das Modul wirklich deinstallieren, dies entfernt auch alle Daten über getätigte Transaktionen.';
 $_MODULE['<{fcpayone}prestashop>translations_75f059d600d5222b10c6a447f22ff2ef'] = 'Vorautorisierung';
 $_MODULE['<{fcpayone}prestashop>translations_a01e976f50338c32695b592a7f5afa5e'] = 'Autorisierung';
@@ -172,6 +173,7 @@ $_MODULE['<{fcpayone}prestashop>translations_7b9d30ad0ac30206e7614fe919e6c774'] 
 $_MODULE['<{fcpayone}prestashop>translations_bb41c063548339f9f5716381096d52c7'] = 'Rechnung';
 $_MODULE['<{fcpayone}prestashop>translations_577d322d680ed8f0275b4ef6fdcd0669'] = 'PayPal';
 $_MODULE['<{fcpayone}prestashop>translations_0658c0e5942a759a887e27b14e70df65'] = 'PayPal Express';
+$_MODULE['<{fcpayone}prestashop>translations_6a43ad5f203d869a31f7373f180cbcb5'] = 'Paydirekt';
 $_MODULE['<{fcpayone}prestashop>translations_dbdafb9a46157fa50dcf61f4a020d3cb'] = 'Zahlung';
 $_MODULE['<{fcpayone}prestashop>translations_c540b61b34e5ae293b09179a1dfe4044'] = 'Der Warenkorb ist leer.';
 $_MODULE['<{fcpayone}prestashop>translations_392409a4b4d3ad46d055b07957402cce'] = 'Allgemeinen Geschäftsbedingungen';

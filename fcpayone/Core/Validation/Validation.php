@@ -52,10 +52,11 @@ class Validation
      * Error setter wrapper
      * @param string $sType
      * @param string $sMessage
+     * @param boolean $blTranslate
      */
-    protected function setError($sType, $sMessage)
+    protected function setError($sType, $sMessage, $blTranslate = false)
     {
-        Registry::getErrorHandler()->setError($sType, $sMessage);
+        Registry::getErrorHandler()->setError($sType, $sMessage, $blTranslate);
     }
 
     /**
@@ -121,7 +122,7 @@ class Validation
 
         $blValidToken = $this->validateCheckoutToken($oContext, $sToken);
         if (!$blValidToken) {
-            $this->setError('validation', 'FC_PAYONE_ERROR_TOKEN');
+            $this->setError('validation', 'FC_PAYONE_ERROR_TOKEN', true);
             return false;
         }
         $blValidPayment = $this->validateUserSelectedPayment();
@@ -165,7 +166,7 @@ class Validation
     protected function validateCart($oCart)
     {
         if ($oCart->id_customer == 0 || $oCart->id_address_delivery == 0 || $oCart->id_address_invoice == 0) {
-            $this->setError('validation', 'FC_PAYONE_ERROR_NO_VALID_CART');
+            $this->setError('validation', 'FC_PAYONE_ERROR_NO_VALID_CART', true);
             return false;
         }
         return true;
@@ -179,7 +180,7 @@ class Validation
     {
         $oSelectedPayment = Registry::getPayment()->getSelectedPaymentMethod();
         if (!$oSelectedPayment) {
-            $this->setError('validation', 'FC_PAYONE_ERROR_NO_PAYMENT_SELECTED');
+            $this->setError('validation', 'FC_PAYONE_ERROR_NO_PAYMENT_SELECTED', true);
             return false;
         }
         return true;
@@ -195,11 +196,22 @@ class Validation
     protected function validateUser($oCustomer)
     {
         if (!\Validate::isLoadedObject($oCustomer)) {
-            $this->setError('validation', 'FC_PAYONE_ERROR_NO_USER_FOUND');
+            $this->setError('validation', 'FC_PAYONE_ERROR_NO_USER_FOUND', true);
             return false;
         }
+
+        if (($oCart = \Context::getContext()->cart) &&
+            ($aSummary = $oCart->getSummaryDetails()) &&
+            $aSummary['is_virtual_cart'] == 1 &&
+            !\Validate::isEmail($oCustomer->email)
+        ) {
+            $this->setError('validation', 'FC_PAYONE_ERROR_VIRTUAL_CART_NEEDS_EMAIL', true);
+            return false;
+        }
+
         return true;
     }
+
 
     /**
      * Triggers request validation
@@ -246,7 +258,7 @@ class Validation
         }
         $sCountry = \Configuration::get('FC_PAYONE_PAYMENT_COUNTRY_' . \Tools::strtoupper($sPayment));
         if (is_string($sCountry)) {
-            $aCountry = \Tools::jsonDecode($sCountry);
+            $aCountry = \Tools::jsonDecode($sCountry, true);
             if (is_array($aCountry) && in_array($sUserCountryId, $aCountry)) {
                 return true;
             }

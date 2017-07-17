@@ -44,5 +44,9 @@ class Paydirekt extends Base
     protected function setPaymentDataToRequest()
     {
         $this->setParam('wallettype', $this->getPayment()->getSubClearingType());
+        $aSummary = $this->getCart()->getSummaryDetails();
+        if ($aSummary['is_virtual_cart'] == 1) {
+            $this->setParam('add_paydata[shopping_cart_type]', 'DIGITAL');
+        }
     }
 }

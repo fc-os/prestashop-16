@@ -118,7 +118,7 @@ class ErrorHandler
      */
     protected function updateErrorKeys($sType, $sKey)
     {
-        $aErrorKeys = \Tools::jsonDecode($this->getSessionVar($this->getErrorKeyIdent()));
+        $aErrorKeys = \Tools::jsonDecode($this->getSessionVar($this->getErrorKeyIdent()), true);
         if (!isset($aErrorKeys[$sType]) || !is_array($aErrorKeys[$sType])) {
             $aErrorKeys[$sType] = array();
         }
@@ -195,7 +195,7 @@ class ErrorHandler
     protected function getErrorKeys($sType = null)
     {
         $aErrorKeys = array();
-        $aSessionErrorKeys = \Tools::jsonDecode($this->getSessionVar($this->getErrorKeyIdent()));
+        $aSessionErrorKeys = \Tools::jsonDecode($this->getSessionVar($this->getErrorKeyIdent()), true);
         if ($sType && isset($aSessionErrorKeys[$sType]) &&
             is_array($aSessionErrorKeys[$sType]) && count($aSessionErrorKeys[$sType]) > 0
         ) {

@@ -31,7 +31,7 @@ class Paydirekt extends Wallet
      *
      * @var string
      */
-    protected $sId = 'wallet_paydirect';
+    protected $sId = 'wallet_paydirekt';
 
 
     /**

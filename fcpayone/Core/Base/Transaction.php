@@ -260,7 +260,7 @@ class Transaction
      */
     protected function getProcessedTransactionData($aTransaction)
     {
-        $aData = \Tools::jsonDecode($aTransaction['data']);
+        $aData = \Tools::jsonDecode($aTransaction['data'], true);
         $aTransaction['data'] = $aData;
         return $aTransaction;
     }
