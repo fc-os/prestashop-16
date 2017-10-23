@@ -21,28 +21,37 @@
  * @link      http://www.payone.de
  */
 
-namespace Payone\Request\Builder\Payment;
+namespace Payone\Payment\Methods\Wallet;
 
-class PayPal extends Base
+class AliPay extends Wallet
 {
 
     /**
-     * Builds payment request
+     * ID
+     *
+     * @var string
      */
-    public function build()
-    {
-        parent::build();
-        $this->setParam('narrative_text', $this->getPayment()->getTitle());
-        $this->setUserToRequest();
-        $this->setPaymentDataToRequest();
-        $this->addRedirectParameters();
-    }
+    protected $sId = 'wallet_alipay';
+
 
     /**
-     * Set paypal request params
+     * ID of parent payment
+     *
+     * @var string
      */
-    protected function setPaymentDataToRequest()
-    {
-        $this->setParam('wallettype', $this->getPayment()->getSubClearingType());
-    }
+    protected $sParentId = 'wallet';
+
+    /**
+     * Clearing type
+     *
+     * @var string
+     */
+    protected $sSubClearingType = 'ALP';
+
+    /**
+     * Payment need redirect urls
+     *
+     * @var boolean
+     */
+    protected $blIsRedirectPayment = true;
 }

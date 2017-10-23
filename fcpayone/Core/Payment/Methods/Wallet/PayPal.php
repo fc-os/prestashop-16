@@ -49,13 +49,6 @@ class PayPal extends Wallet
     protected $sSubClearingType = 'PPE';
 
     /**
-     * Payment template
-     *
-     * @var string
-     */
-    protected $sTemplate = 'paypal.tpl';
-
-    /**
      * Payment need redirect urls
      *
      * @var boolean

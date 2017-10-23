@@ -49,13 +49,6 @@ class Paydirekt extends Wallet
     protected $sSubClearingType = 'PDT';
 
     /**
-     * Payment template
-     *
-     * @var string
-     */
-    protected $sTemplate = 'paydirekt.tpl';
-
-    /**
      * Payment need redirect urls
      *
      * @var boolean

@@ -21,9 +21,28 @@
  * @link      http://www.payone.de
  */
 
-namespace Payone\Forms\Backend\Payment;
+namespace Payone\Request\Builder\Payment;
 
-class Paydirekt extends Base
+class Wallet extends Base
 {
 
+    /**
+     * Builds payment request
+     */
+    public function build()
+    {
+        parent::build();
+        $this->setParam('narrative_text', $this->getPayment()->getTitle());
+        $this->setUserToRequest();
+        $this->setPaymentDataToRequest();
+        $this->addRedirectParameters();
+    }
+
+    /**
+     * Set paypal request params
+     */
+    protected function setPaymentDataToRequest()
+    {
+        $this->setParam('wallettype', $this->getPayment()->getSubClearingType());
+    }
 }

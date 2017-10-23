@@ -74,6 +74,7 @@ class Payment
             'PayPal',
             'PayPalExpress',
             'Paydirekt',
+            'AliPay',
         ),
     );
 

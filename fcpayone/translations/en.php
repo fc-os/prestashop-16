@@ -174,6 +174,7 @@ $_MODULE['<{fcpayone}prestashop>translations_bb41c063548339f9f5716381096d52c7'] 
 $_MODULE['<{fcpayone}prestashop>translations_577d322d680ed8f0275b4ef6fdcd0669'] = 'PayPal';
 $_MODULE['<{fcpayone}prestashop>translations_0658c0e5942a759a887e27b14e70df65'] = 'PayPal Express';
 $_MODULE['<{fcpayone}prestashop>translations_6a43ad5f203d869a31f7373f180cbcb5'] = 'Paydirekt';
+$_MODULE['<{fcpayone}prestashop>translations_f72816ab02207c6fc7cdbad5d58077c5'] = 'AliPay';
 $_MODULE['<{fcpayone}prestashop>translations_dbdafb9a46157fa50dcf61f4a020d3cb'] = 'Payment';
 $_MODULE['<{fcpayone}prestashop>translations_c540b61b34e5ae293b09179a1dfe4044'] = 'Your cart is empty.';
 $_MODULE['<{fcpayone}prestashop>translations_392409a4b4d3ad46d055b07957402cce'] = 'Terms and Conditions';

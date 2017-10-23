@@ -23,7 +23,7 @@
 
 namespace Payone\Forms\Backend\Payment;
 
-class PayPal extends Base
+class Wallet extends Base
 {
     /**
      * Returns form fields for connection form
