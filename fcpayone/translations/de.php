@@ -203,3 +203,10 @@ $_MODULE['<{fcpayone}prestashop>translations_bf185f8d1a1ae05c04510e5d700bfd10'] 
 $_MODULE['<{fcpayone}prestashop>translations_f7f11f23268b94d6285fd208380dfc9a'] = 'Der Gesamtbetrag Ihrer Bestellung beträgt';
 $_MODULE['<{fcpayone}prestashop>translations_1e1c578a3b53e075b01d03661ecd21a4'] = ' (inkl. MwSt.) ';
 $_MODULE['<{fcpayone}prestashop>translations_dce6d15d786e5c46dd43947821b323c1'] = 'Bestellnummer:';
+$_MODULE['<{fcpayone}prestashop>translations_93142ebf6bb150788ff8b5f770afb3e8'] = 'Bitte geben Sie ein gültiges Geburtsdatum an!';
+$_MODULE['<{fcpayone}prestashop>translations_6f2ef88922b51948e9f9bde6108f6340'] = 'Sie müssen min. 18 Jahre alt sein!';
+$_MODULE['<{fcpayone}prestashop>translations_64d2cbbd05af8fe7bccfb3862090de28'] = 'Gesicherter Rechnungskauf';
+$_MODULE['<{fcpayone}prestashop>translations_be1d7526bea73f2eb041daaa073a1e36'] = 'Geburtsdatum';
+
+
+

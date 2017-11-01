@@ -39,6 +39,7 @@ class Payment
         'CreditCard',
         'Debit',
         'Invoice',
+        'InvoiceSecure',
         'Wallet',
         'OnlineTransfer',
     );
