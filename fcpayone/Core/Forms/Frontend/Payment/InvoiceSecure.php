@@ -21,7 +21,6 @@
  * @link      http://www.payone.de
  */
 
-
 namespace Payone\Forms\Frontend\Payment;
 
 use Payone\Base\Registry;
@@ -49,9 +48,58 @@ class InvoiceSecure extends Base
         $aForm = array();
         if (\Tools::isSubmit('fcpayonesubmit')) {
             $aForm = parent::getFormData();
+            $this->updateCustomer($aForm);
+        } else {
+            $aForm = $this->addCustomerData($aForm);
         }
-
         return $aForm;
+    }
+
+    /**
+     * Updates customer birthday
+     *
+     * @param $aForm
+     */
+    protected function addCustomerData($aForm)
+    {
+        if (($oCustomer = $this->getCustomer())) {
+            if ($oCustomer->birthday && $oCustomer->birthday != '0000-00-00') {
+                $aBirthDay = explode('-', $oCustomer->birthday);
+                $aForm['years'] = $aBirthDay[0];
+                $aForm['months'] = $aBirthDay[1];
+                $aForm['days'] = $aBirthDay[2];
+            }
+        }
+        return $aForm;
+    }
+
+    /**
+     * Updates customer birthday
+     *
+     * @param $aForm
+     */
+    protected function updateCustomer($aForm)
+    {
+        if (($oCustomer = $this->getCustomer())) {
+            if (trim($aForm['years']) && trim($aForm['months']) && trim($aForm['days'])) {
+                $oCustomer->birthday = (int)trim($aForm['years']) . '-' . (int)trim($aForm['months']) . '-' . (int)trim($aForm['days']);
+                $oCustomer->update();
+            }
+        }
+    }
+
+    /**
+     * Returns customer object
+     *
+     * @return mixed
+     */
+    protected function getCustomer()
+    {
+        $sCustomerId = $this->getContext()->cart->id_customer;
+        if ($sCustomerId) {
+            $oCustomer = Registry::getHelperPrestashop()->fcPayoneGetCustomer($sCustomerId);
+            return $oCustomer;
+        }
     }
 
     /**
