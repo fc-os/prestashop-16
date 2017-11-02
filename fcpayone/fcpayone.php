@@ -376,7 +376,7 @@ class FcPayone extends \PaymentModule
     {
         $oOrder = new Order($params['id_order']);
         if ($oOrder->module !== $this->name) {
-            \Payone\Base\Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_ORDER_FAIL');
+            \Payone\Base\Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_MODULE_NOT_VALID');
             return;
         }
         $oOrderForm = new \Payone\Forms\Backend\Order;

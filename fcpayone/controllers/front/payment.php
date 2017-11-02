@@ -59,6 +59,12 @@ class FcPayonePaymentModuleFrontController extends ModuleFrontController
             } elseif ($oSelectedPayment->isRedirectPayment() && Tools::getValue('payone_redirect') == 'success') {
                 $blValid = $this->fcPayoneValidateOrder(true);
                 $this->fcPayoneCreateOrder(!$blValid);
+            } elseif ($oSelectedPayment->isRedirectPayment() && Tools::getValue('payone_redirect') == 'error') {
+                Registry::getErrorHandler()->setError(
+                    'order',
+                    'FC_PAYONE_ERROR_PAYMENT_EXECUTION_FAILED',
+                    true
+                );
             }
         }
     }
