@@ -48,6 +48,14 @@ class Base extends \Payone\Request\Builder\Base
     protected $sDescription = null;
 
     /**
+     * Sets firtst order request
+     * can contain basket...
+     *
+     * @var null
+     */
+    protected $aFirstRequest = null;
+
+    /**
      * Sets order data
      *
      * @param $aOrderData
@@ -85,6 +93,24 @@ class Base extends \Payone\Request\Builder\Base
     protected function getAmount()
     {
         return $this->dAmount;
+    }
+
+    /**
+     * Sets first order request
+     *
+     * @param array $aRequest
+     */
+    public function setFirstRequest($aRequest) {
+        $this->aFirstRequest = $aRequest;
+    }
+
+    /**
+     * Returns first order request
+     *
+     * @return array|null
+     */
+    protected function getFirstRequest() {
+        return $this->aFirstRequest;
     }
 
     /**
@@ -148,5 +174,21 @@ class Base extends \Payone\Request\Builder\Base
         $iSequenceNumber = (int)\Db::getInstance()->getValue($sQ);
         $iSequenceNumber += 1;
         $this->setParam('sequencenumber', $iSequenceNumber);
+    }
+
+
+    /**
+     * Set items from first request to new reuest
+     * cant use real basket, because of possible changes
+     */
+    protected function setItemsFromFirstRequestToRequest() {
+        $aFirstRequest = $this->getFirstRequest();
+        if( is_array($aFirstRequest) && count($aFirstRequest) > 0 ) {
+            foreach( $aFirstRequest as $sKey => $sValue ) {
+                if ( preg_match('/(it|id|pr|no|de|va)(\[\d\])/', $sKey) ) {
+                    $this->setParam($sKey, $sValue);
+                }
+            }
+        }
     }
 }

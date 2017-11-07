@@ -256,6 +256,26 @@ class Request
         return (bool)\Db::getInstance()->insert(self::getTable(), $aData);
     }
 
+    /**
+     * Returns first request for txid
+     *
+     * @param $iRawTxId
+     * @return array
+     */
+    protected function getFirstRequestByTxid($iRawTxId)
+    {
+        if ($iRawTxId) {
+            $iTxId = (int)\pSQL($iRawTxId);
+            $sTable = _DB_PREFIX_ . self::getTable();
+            $sQ = "select request from " . $sTable .
+                " where txid = '{$iTxId}' and (status = 'APPROVED' || status = 'REDIRECT') order by date asc";
+            $aRow = \Db::getInstance()->getRow($sQ);
+            if (isset($aRow['request'])) {
+                $oRequest = \Tools::jsonDecode($aRow['request'], true);
+                return $oRequest;
+            }
+        }
+    }
 
     /**
      * Returns param from response/request
@@ -433,16 +453,21 @@ class Request
     /**
      * Bulds and sends capture request
      *
+     * @param $oPayment
      * @param $aOrderData
      * @param $dAmount
      * @param $blSettleAccount
      * @return boolean
      */
-    public function processCapture($aOrderData, $dAmount, $blSettleAccount = true)
+    public function processCapture($oPayment, $aOrderData, $dAmount, $blSettleAccount = true)
     {
         try {
             $oBuilder = new \Payone\Request\Builder\Order\Capture;
             $oBuilder->setOrderdata($aOrderData);
+            if ( ($aFirstRequest = $this->getFirstRequestByTxid($aOrderData['txid'])) ){
+                $oBuilder->setFirstRequest($aFirstRequest);
+            }
+            $oBuilder->setPayment($oPayment);
             $oBuilder->setAmount($dAmount);
             $oBuilder->setAccountSettlement($blSettleAccount);
             $oBuilder->build();
@@ -456,17 +481,22 @@ class Request
     /**
      * Bulds and sends capture request
      *
+     * @param $oPayment
      * @param $aOrderData
      * @param $dAmount
      * @param $aBankData
      *
      * @return boolean
      */
-    public function processDebit($aOrderData, $dAmount, $aBankData = null)
+    public function processDebit($oPayment, $aOrderData, $dAmount, $aBankData = null)
     {
         try {
             $oBuilder = new \Payone\Request\Builder\Order\Debit;
             $oBuilder->setOrderdata($aOrderData);
+            if ( ($aFirstRequest = $this->getFirstRequestByTxid($aOrderData['txid'])) ){
+                $oBuilder->setFirstRequest($aFirstRequest);
+            }
+            $oBuilder->setPayment($oPayment);
             $oBuilder->setAmount($dAmount);
             $oBuilder->setBankData($aBankData);
             $oBuilder->build();
@@ -476,4 +506,5 @@ class Request
         }
         return $this->sendRequest($this->getRequest());
     }
+
 }

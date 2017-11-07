@@ -68,4 +68,27 @@ class InvoiceSecure extends Base
      * @var string
      */
     protected $sTemplate = 'invoicesecure.tpl';
+
+
+    /**
+     * Disable amount input for capture/refund
+     * eg. secure invoice
+     *
+     * @var bool
+     */
+    protected $blDisableAmountInput = true;
+
+    /**
+     * Add items to capture request
+     *
+     * @var bool
+     */
+    protected $blIsItemsRequiredInCaptureRequest = true;
+
+    /**
+     * Add items to debit/refund request
+     *
+     * @var bool
+     */
+    protected $blIsItemsRequiredInDebitRequest = true;
 }

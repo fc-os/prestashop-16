@@ -61,6 +61,10 @@ class Debit extends Base
         $this->setParam('request', 'debit');
         $this->setParam('transactiontype', 'GT');
         $this->setBankDataToRequest();
+
+        if ($this->getPayment()->isItemsRequiredInDebitRequest()) {
+            $this->setItemsFromFirstRequestToRequest();
+        }
     }
 
     /**

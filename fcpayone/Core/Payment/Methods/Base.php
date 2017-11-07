@@ -185,7 +185,29 @@ class Base
      * like wallet with paypal, amazon..
      * @var bool
      */
-    protected $isGroupedPayment = false;
+    protected $blIsGroupedPayment = false;
+
+    /**
+     * Disable amount input for capture/refund
+     * eg. secure invoice
+     *
+     * @var bool
+     */
+    protected $blDisableAmountInput = false;
+
+    /**
+     * Add items to capture request
+     *
+     * @var bool
+     */
+    protected $blIsItemsRequiredInCaptureRequest = false;
+
+    /**
+     * Add items to debit/refund request
+     *
+     * @var bool
+     */
+    protected $blIsItemsRequiredInDebitRequest = false;
 
     /**
      * inits params
@@ -628,6 +650,37 @@ class Base
      */
     public function isGroupedPayment()
     {
-        return $this->isGroupedPayment;
+        return $this->blIsGroupedPayment;
+    }
+
+    /**
+     * Returns true if amount input is disabled
+     * in order backend capture/redunf
+     *
+     * @return bool
+     */
+    public function isAmountInputDisabled()
+    {
+        return $this->blDisableAmountInput;
+    }
+
+    /**
+     * Returns true if items should be added to capture request
+     *
+     * @return bool
+     */
+    public function isItemsRequiredInCaptureRequest()
+    {
+        return $this->blIsItemsRequiredInCaptureRequest;
+    }
+
+    /**
+     * Returns true if items should be added to debit/refund request
+     *
+     * @return bool
+     */
+    public function isItemsRequiredInDebitRequest()
+    {
+        return $this->blIsItemsRequiredInDebitRequest;
     }
 }

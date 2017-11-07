@@ -89,7 +89,7 @@
                                 {/if}
                                 {if isset($oFcPayonePayment)}
                                     <tr>
-                                        <td>{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_CARD_TYPE')|escape:'html':'UTF-8'}</td>
+                                        <td>{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_PAYMENT_TYPE')|escape:'html':'UTF-8'}</td>
                                         <td>{$oFcPayonePayment->getTitle()|escape:'html':'UTF-8'}</td>
                                     </tr>
                                 {/if}

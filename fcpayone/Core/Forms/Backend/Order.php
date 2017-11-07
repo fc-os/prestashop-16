@@ -170,7 +170,6 @@ class Order extends Base
         return (bool)\Db::getInstance()->getValue($sQ);
     }
 
-
     /**
      * Returns capture form html
      *
@@ -191,12 +190,35 @@ class Order extends Base
         if ($oPayment && $oPayment->isAccountSettlementAllowed()) {
             $blSettleAccount = true;
         }
-
         $this->getSmarty()->assign('blFcPayoneAccountSettlement', $blSettleAccount);
+        $this->checkForFixedAmount($oPayment, $aOrderData);
+
         $sForm = $this->getSmarty()->fetch(
             Registry::getHelper()->getModulePath() . 'views/templates/hook/admin/inc/capture.tpl'
         );
         $this->getSmarty()->assign('sFcPayoneCaptureForm', $sForm);
+    }
+
+    /**
+     * Check for fixed amount capture
+     * disables input field and sets amount
+     *
+     * @param $oPayment
+     * @param $aOrderData
+     */
+    protected function checkForFixedAmount($oPayment, $aOrderData) {
+        $blDisableAmountInput = false;
+        $dFcPayoneFixedAmount = false;
+        if ($oPayment && $oPayment->isAmountInputDisabled()) {
+            $blDisableAmountInput = true;
+            $oTransaction = new \Payone\Base\Transaction();
+            $aTransaction = $oTransaction->getFirstTransaction($aOrderData['id_order'], 'id_order');
+            if (is_array($aTransaction) && count($aTransaction) > 0) {
+                $dFcPayoneFixedAmount = (double)$aTransaction['data']['price'];
+            }
+        }
+        $this->getSmarty()->assign('blFcPayoneDisableAmountInput', $blDisableAmountInput);
+        $this->getSmarty()->assign('dFcPayoneFixedAmount', $dFcPayoneFixedAmount);
     }
 
     /**
@@ -209,8 +231,9 @@ class Order extends Base
     {
         $dAmount = $this->getActionAmount();
         if (!$dAmount || $dAmount < 0 || $dAmount > $oOrder->total_paid) {
-            Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_ORDER_ACTION_AMOUNT_NOT_VALID');
+            Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_ORDER_ACTION_AMOUNT_NOT_VALID', true);
         } else {
+            $oPayment = Registry::getPayment()->getPaymentMethod($aOrderData['paymentid']);
             $oRequest = new Request();
             $oRequest->setAdditionalSaveData('reference', $aOrderData['reference']);
             $oRequest->setAdditionalSaveData('userid', $aOrderData['userid']);
@@ -219,7 +242,7 @@ class Order extends Base
             if (\Tools::isSubmit('payone_settleaccount')) {
                 $blSettleAccount = (bool)\Tools::getValue('payone_settleaccount');
             }
-            if (($oRequest->processCapture($aOrderData, $dAmount, $blSettleAccount))) {
+            if (($oRequest->processCapture($oPayment, $aOrderData, $dAmount, $blSettleAccount))) {
                 $oResponse = new Response();
                 $oResponse->setResponse($oRequest->getResponse());
                 $oResponse->processCapture();
@@ -273,6 +296,7 @@ class Order extends Base
             $blBankDataNeeded = true;
         }
         $this->getSmarty()->assign('blFcPayoneBankDataNeeded', $blBankDataNeeded);
+        $this->checkForFixedAmount($oPayment, $aOrderData);
         $sForm = $this->getSmarty()->fetch(
             Registry::getHelper()->getModulePath() . 'views/templates/hook/admin/inc/debit.tpl'
         );
@@ -288,18 +312,19 @@ class Order extends Base
     {
         $dAmount = $this->getActionAmount();
         if (!$dAmount) {
-            Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_ORDER_ACTION_AMOUNT_NOT_VALID');
+            Registry::getErrorHandler()->setError('order', 'FC_PAYONE_ERROR_ORDER_ACTION_AMOUNT_NOT_VALID', true);
         } else {
             // amount for credit entry has to be negative
             if ((double)$dAmount > 0) {
                 $dAmount = (double)$dAmount * -1;
             }
             if ($dAmount && $dAmount < 0) {
+                $oPayment = Registry::getPayment()->getPaymentMethod($aOrderData['paymentid']);
                 $oRequest = new Request();
                 $oRequest->setAdditionalSaveData('reference', $aOrderData['reference']);
                 $oRequest->setAdditionalSaveData('userid', $aOrderData['userid']);
                 $aBankData = $this->getDebitBankData();
-                if (($oRequest->processDebit($aOrderData, $dAmount, $aBankData))) {
+                if (($oRequest->processDebit($oPayment, $aOrderData, $dAmount, $aBankData))) {
                     $oResponse = new Response();
                     $oResponse->setResponse($oRequest->getResponse());
                     $oResponse->processDebit();

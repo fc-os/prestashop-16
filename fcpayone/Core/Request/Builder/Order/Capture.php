@@ -75,6 +75,11 @@ class Capture extends Base
                 $this->setParam('settleaccount', 'no');
             }
         }
+
+        if ( $this->getPayment()->isItemsRequiredInCaptureRequest() ) {
+            $this->setItemsFromFirstRequestToRequest();
+        }
+
         return $blReturn;
     }
 }

@@ -95,7 +95,6 @@ $_MODULE['<{fcpayone}prestashop>translations_93429ce1216ef7b200900e39d9023135'] 
 $_MODULE['<{fcpayone}prestashop>translations_55f94d323069095acaa3e88a49a579d6'] = 'IBAN';
 $_MODULE['<{fcpayone}prestashop>translations_a7f4350499fa371114c6e367495ef44f'] = 'BIC';
 $_MODULE['<{fcpayone}prestashop>translations_7c573167216a3413292f9a644f18bb6e'] = 'Ablaufdatum';
-$_MODULE['<{fcpayone}prestashop>translations_71a542cf4cc6749183b2d01193d910e0'] = 'Kartentyp';
 $_MODULE['<{fcpayone}prestashop>translations_63cc59a4061c62a30c46c8fc2b35a4a5'] = 'Kartennummer';
 $_MODULE['<{fcpayone}prestashop>translations_ed67c6171475c20085c3bb0925e3572d'] = 'Letzter Anfrage Status';
 $_MODULE['<{fcpayone}prestashop>translations_fc7a15f416c18106f6814da3e9a4f943'] = 'Anfrage Fehler';
@@ -207,6 +206,12 @@ $_MODULE['<{fcpayone}prestashop>translations_93142ebf6bb150788ff8b5f770afb3e8'] 
 $_MODULE['<{fcpayone}prestashop>translations_6f2ef88922b51948e9f9bde6108f6340'] = 'Sie müssen min. 18 Jahre alt sein!';
 $_MODULE['<{fcpayone}prestashop>translations_64d2cbbd05af8fe7bccfb3862090de28'] = 'Gesicherter Rechnungskauf';
 $_MODULE['<{fcpayone}prestashop>translations_be1d7526bea73f2eb041daaa073a1e36'] = 'Geburtsdatum';
+$_MODULE['<{fcpayone}prestashop>translations_f86989707ccdbae8626ca4c6ff6041d5'] = 'Keine Bestelldaten gefunden.';
+$_MODULE['<{fcpayone}prestashop>translations_a9165ad8e0c02f59640aa27175376432'] = 'Typ';
+$_MODULE['<{fcpayone}prestashop>translations_ce40e1339a579b17f6a7662b2305aab5'] = 'Wollen Sie wirklich ein \"refund\" ausführen?';
+$_MODULE['<{fcpayone}prestashop>translations_7f18f1efc290f6e8c122ae2b9f6d8292'] = 'Capture';
+$_MODULE['<{fcpayone}prestashop>translations_ec2053d9012818b66885326cefebd795'] = 'Debit';
+
 
 
 

@@ -24,7 +24,7 @@
 <div class="col-xs-6">
     <form class="submitPayoneForm" name="submitPayoneDebitForm" method="post" action="#formPayonePanel"
           data-payone-confirm="{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_DEBIT_CONFIRM')}">
-        <h4>{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION')|escape:'html':'UTF-8'}</h4>
+        <h4>{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION')|escape:'html':'UTF-8'}: {$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_ACTION_DEBIT')|escape:'html':'UTF-8'}</h4>
         <div class="form-group">
             <div class="input-group">
                 <label for="payone_amount_debit">{$oFcPayoneTranslator->translate('FC_PAYONE_BACKEND_ORDER_AMOUNT')|escape:'html':'UTF-8'}
@@ -32,8 +32,14 @@
                         {$sFcPayoneCurrencyIso|escape:'html':'UTF-8'}
                     {/if}
                 </label>
-                <input id="payone_amount_debit" type="text" name="payone_amount" class="form-control"
-                       value="{if isset($smarty.request.payone_amount)}{$smarty.request.payone_amount|escape:'html':'UTF-8'}{/if}">
+                {if $blFcPayoneDisableAmountInput}
+                    <input type="hidden" name="payone_amount" value="{$dFcPayoneFixedAmount|escape:'html':'UTF-8'}">
+                    <input id="payone_amount_debit" type="text" disabled name="payone_amount" class="form-control"
+                           value="{$dFcPayoneFixedAmount|escape:'html':'UTF-8'}">
+                {else}
+                    <input id="payone_amount_debit" type="text" name="payone_amount" class="form-control"
+                           value="{if isset($smarty.request.payone_amount)}{$smarty.request.payone_amount|escape:'html':'UTF-8'}{/if}">
+                {/if}
             </div>
         </div>
         {if isset($blFcPayoneBankDataNeeded) && $blFcPayoneBankDataNeeded}

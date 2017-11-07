@@ -71,5 +71,5 @@ class Wallet extends \Payone\Payment\Methods\Base
      *
      * @var bool
      */
-    protected $isGroupedPayment = true;
+    protected $blIsGroupedPayment = true;
 }

@@ -35,5 +35,6 @@ class InvoiceSecure extends Base
         $this->setParam('narrative_text', $this->getPayment()->getTitle());
         $this->setParam('clearingsubtype', $this->getPayment()->getSubClearingType());
         $this->setUserToRequest();
+        $this->setItemsToRequest();
     }
 }
