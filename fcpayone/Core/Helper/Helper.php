@@ -104,15 +104,94 @@ class Helper
         return $aData;
     }
 
-
     /**
      * Build module url
      *
      * @param string $sController
      * @param array $aParams
+     *
+     * @return string
      */
     public function buildModuleUrl($sController, $aParams)
     {
         return \Context::getContext()->link->getModuleLink('fcpayone', $sController, $aParams);
+    }
+
+    /**
+     * Returns detected encoding
+     *  based on http://php.net/manual/de/function.mb-detect-encoding.php#113983
+     * @param $sString
+     * @return false|mixed|null|string
+     */
+    public function detectEncoding($sString)
+    {
+        $sEncoding = null;
+        if (method_exists('mb_detect_encoding')) {
+            $sEncoding = mb_detect_encoding($sString, 'UTF-8', true);
+        } elseif (method_exists('iconv')) {
+            $aEncodings = array(
+                'UTF-8',
+                'ASCII',
+                'ISO-8859-1',
+                'ISO-8859-2',
+                'ISO-8859-3',
+                'ISO-8859-4',
+                'ISO-8859-5',
+                'ISO-8859-6',
+                'ISO-8859-7',
+                'ISO-8859-8',
+                'ISO-8859-9',
+                'ISO-8859-10',
+                'ISO-8859-13',
+                'ISO-8859-14',
+                'ISO-8859-15',
+                'ISO-8859-16',
+                'Windows-1251',
+                'Windows-1252',
+                'Windows-1254',
+            );
+
+            foreach ($aEncodings as $sEncodingItem) {
+                $sEncodedString = iconv($sEncodingItem, $sEncodingItem, $sString);
+                if (md5($sEncodedString) == md5($sString)) {
+                    $sEncoding = $sEncodingItem;
+                    break;
+                }
+            }
+        }
+        return $sEncoding;
+    }
+
+    /**
+     * Check if string is utf-8
+     *
+     * @param $sString
+     * @return bool
+     */
+    public function isUTF8($sString)
+    {
+        $sEncoding = $this->detectEncoding($sString);
+        if (\Tools::strtolower($sEncoding) == 'utf-8') {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Converts string to utf-8
+     * @param $sString
+     * @return string
+     */
+    public function convertToUTF8($sString)
+    {
+        if (!$this->isUTF8($sString)) {
+            if (method_exists('iconv')) {
+                $sActEncoding = $this->detectEncoding($sString);
+                $sString = iconv($sActEncoding, 'UTF-8', $sString);
+            } else {
+                $sString = utf8_encode($sString);
+            }
+        }
+        return $sString;
     }
 }

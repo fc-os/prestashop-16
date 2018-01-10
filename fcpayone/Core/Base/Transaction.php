@@ -157,6 +157,7 @@ class Transaction
         return $this->aActionLangMapping;
     }
 
+
     /**
      * saves request to db
      *
@@ -164,7 +165,12 @@ class Transaction
      */
     public function save()
     {
-        if (($aTransactionData = $this->getData())) {
+        if (($aRawData = $this->getData())) {
+            $aTransactionData = array();
+            foreach ($aRawData as $sKey => $sValue) {
+                $aTransactionData[$sKey] = \Payone\Base\Registry::getHelper()->convertToUTF8($sValue);
+            }
+
             $oUser = new \Payone\Base\User;
             $iCustomerId = $oUser->getCustomerIdByPayoneUserId($aTransactionData['userid']);
             $aData = array();
@@ -209,7 +215,7 @@ class Transaction
         $aData = array(
             'id_order' => \pSQL($iOrderId)
         );
-        $iTxId = (int) $iTxId;
+        $iTxId = (int)$iTxId;
         return (bool)\Db::getInstance()->update(self::getTable(), $aData, "txid = '{$iTxId}'");
     }
 
@@ -225,7 +231,7 @@ class Transaction
         $aData = array(
             'reference' => \pSQL($sReference)
         );
-        $iTxId = (int) $iTxId;
+        $iTxId = (int)$iTxId;
         return (bool)\Db::getInstance()->update(self::getTable(), $aData, "txid = '{$iTxId}'");
     }
 
